@@ -1,0 +1,100 @@
+"use client"
+import Image from "next/image";
+import Logo from "../../media/logo.png";
+import Carticon from "../../media/cart-icon.png";
+import styles from '../../styles/header.module.css'
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import ButtonCard from "./button";
+import CartProductInfo from "./cartproductinfo";
+import Link from "next/link";
+import { menuCategories } from "@/redux/actions/action";
+
+const Header = () => {
+
+  const [showCartModal, setShowCartmodal] = useState(false)
+
+  const cartMeals = useSelector((state: any) => state.cartReducer);
+  const mealCategoryOnOff = useSelector((state:any) =>state.categoriesReducer)
+  
+  const dispatch = useDispatch()
+
+  const showModalCart = () => {
+    setShowCartmodal(true)
+  }
+  const hideModalCart = () => {
+    setShowCartmodal(false)
+  }
+  const showhideModalCart = () => {
+    setShowCartmodal(!showCartModal)
+  }
+
+  const showHideMenuCategories = () => {
+    dispatch(menuCategories(!mealCategoryOnOff))
+  }
+
+  return (
+    <header className={styles.header}>      
+      <nav className="flex fixed md:relative w-full top-0 p-3 justify-between md:justify-center items-center bg-[#C00A27] md:bg-transparent">
+        <div className="w-[100px] md:hidden">
+          <Image  src={Logo} alt="Logo" />
+        </div>
+        <div className="mt-5 hidden md:block">
+          <Image className="w-44" src={Logo} alt="Logo" />
+        </div>
+        <div className="gap-3 flex items-center md:hidden">
+          <button onClick={showhideModalCart}><Image className="w-6" src={Carticon} alt="Shopping cart icon"/></button>
+          <button onClick={showHideMenuCategories} className="font-bold text-white">MENU</button>
+        </div>
+      </nav>
+
+      <div className="hidden md:block md:fixed right-3.5 top-10 w-14 h-12 bg-[rgba(0,0,0,.4)] rounded-lg" onMouseOver={showModalCart} onMouseOut={hideModalCart}>
+        <Image className="w-7 m-auto mt-2" src={Carticon} alt="Card Busket" />
+        <p className="absolute top-0 right-2 text-center font-bold text-[10px] text-white bg-red-700 w-[18px] h-[18px] leading-[18px] rounded-2xl">{cartMeals !== null ? cartMeals.length : 0}</p>
+      </div>
+
+      {showCartModal &&
+          <div 
+            onMouseOver={showModalCart} 
+            onMouseOut={hideModalCart} 
+            className="fixed top-[53px] md:top-[85px] md:w-[400px] md:min-h-[70px] md:right-[40px] md:rounded text-[black]  min-h-[90px] bg-[white] p-5 drop-shadow-2xl z-50 w-full"
+            >
+            {cartMeals && cartMeals.length !== 0 ?
+              <>
+                {cartMeals.map((meal: any) =>
+                  <>
+                    <CartProductInfo
+                      key={meal.selectedMeal.id}
+                      ProductID={meal.selectedMeal.id}
+                      CartProductImg={meal.selectedMeal.img_url.small}
+                      CartproductTitle={meal.selectedMeal.title}
+                      CartProductOption={meal.options}
+                      cartContainerWrapper_classname="flex justify-between "
+                      cartContainer_classname="flex"
+                      cartContainerProductDetail_classname="flex flex-col items-start"
+                      cartContainerProductDetailOption_classname="text-xs"
+                    />
+                  </>
+                )}
+                <div className="flex flex-col items-center">
+                  <div className="w-[80%] h-[50px] bg-gray-300 rounded-lg mt-5">
+                    <Link href="/pages/cart">
+                      <ButtonCard
+                        button_text="View cart"
+                      />
+                    </Link>
+                  </div>
+                  <ButtonCard
+                    button_text="Checkout"
+                    button_Classname="w-[80%] h-[50px] bg-[#C00A27] text-white rounded-lg mt-5"
+                  />
+                </div>
+              </> : <p>No products is the cart</p>
+            }
+          </div>
+        }
+    </header>
+  );
+};
+
+export default Header;

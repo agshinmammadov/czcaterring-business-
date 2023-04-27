@@ -1,0 +1,197 @@
+'use client'
+import Search from "@/app/components/search";
+import Sidebar from "@/app/components/sidebar";
+import Link from "next/link";
+import { useEffect, useState, SyntheticEvent } from "react";
+import Productcard from "../components/productcard";
+import ProductDetailsOverlay from "./proddetailsoverlay";
+import CartProductInfo from "@/app/components/cartproductinfo";
+import { useDispatch, useSelector } from "react-redux";
+import ButtonCard from "@/app/components/button";
+import Image from "next/image";
+import Loader from "../../media/foodloader.gif";
+import Shoppingcart from "../../media/shopping-cart.png";
+import { menuCategories } from "@/redux/actions/action";
+
+const Home = () => {
+  const [products, setProducts] = useState<[]>([]);
+  const [searchValue, setSearchValue] = useState('');
+  const [showProdDetailOverlay, setShowProdDetailOverlay] = useState(false);
+  const [clickedMeal, setClickedMeal] = useState('');
+
+  const showMenuCategories = useSelector((state:any) => state.categoriesReducer);
+
+  const cartMeals = useSelector((state: any) => state.cartReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await fetch(
+        "https://gist.githubusercontent.com/turalus/8890c7e87f8274d7df062b16d4818dfd/raw/90ddd447d92f37f6768a0a3569afd7093c98cbcd/er_api_response.json"
+      );
+      const data = await res.json();
+      setProducts(data.data.categories)
+    };
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    if (showProdDetailOverlay) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [showProdDetailOverlay])
+
+
+  const filteredData = products.filter((category) => {
+    return category.items.some((item: any) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  });
+
+  const HandleSearchResult = (e: any) => {
+    setSearchValue(e.target.value)
+
+  }
+
+
+  const SelectedMealHandler = (event: SyntheticEvent<HTMLDivElement>) => {
+    const firstResultOfClick: any = event.currentTarget.getAttribute('identifier')
+    setClickedMeal(firstResultOfClick)
+    setShowProdDetailOverlay(true)
+  }
+
+  const closeDetailOverlay = () => {
+    setShowProdDetailOverlay(false)
+  }
+  
+
+  if (products.length != 0) {
+    return (
+      <>
+        <div className="flex flex-row justify-center md:justify-start 2xl:justify-center flex-wrap bg-white text-black h-full px-5 ">
+          <div className=" md:block border-b-2 w-full md:sticky md:top-0 md:w-[25%] md:max-w-[350px] md:h-[600px] p-4  mt-5">
+            <Search          
+              search_input_classname="p-2 bg-white border border-slate-600 w-full rounded-md"
+              onChange={HandleSearchResult}
+            />
+            <ul className="hidden md:block rounded-lg bg-gray-100 p-3 w-full mt-4">
+              {products.map((cat: any) =>
+                <a href={`#${cat.title}`} key={cat.id}>
+                  <Sidebar
+                    sidebartitle={cat.title}
+                    sidebartitle_classname="p-2"
+                  />
+                </a>
+              )}
+            </ul>
+          </div>
+
+           {/* For mobile devices */}
+           {/* <div className="md:hidden p-4 w-full mt-5 border-b-2">
+            <Search
+              search_div_classname="bg-gray-300"
+              search_input_classname="p-2 bg-white border-2 w-full"
+              onChange={HandleSearchResult}
+            />
+          </div> */}
+          
+          {/* For mobile devices */}
+          {showMenuCategories &&
+            <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4">
+              {products.map((cat: any) =>
+                <a href={`#${cat.title}`} key={cat.id}>
+                  <Sidebar
+                    sidebartitle={cat.title}
+                    sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27]"
+                    onClick_activity={() => dispatch(menuCategories(!showMenuCategories))}
+                  />
+                </a>
+              )}
+            </ul>          
+          }
+         
+
+         
+
+          <div className="w-[90%] md:w-[50%] min-h-50vh mt-5 min-w-[250px]">
+            {filteredData.map((item: any) =>
+              <div className="mt-10" key={item.id}>
+                <h1 className="text-2xl font-bold md:text-3xl" id={item.title}>{item.title}</h1>
+                <div className="flex flex-wrap mt-2">
+                  {item.items.filter((item: any) =>
+                    item.title.toLowerCase().includes(searchValue.toLowerCase())).map((el: any) =>
+                      <Productcard
+                        key={el.id}
+                        identifier={el.id}
+                        title={el.title}
+                        img_url={el.img_url.large}
+                        min_price={el.min_price}
+                        max_price={el.max_price}
+                        onClick={SelectedMealHandler}
+                        container_classname="flex flex-col lg:w-1/3 sm:w-1/2  text-black text-center px-3 cursor-pointer"
+                        img_classname="max-w-full"
+                        title_classname="text-base"
+                        price_classname="text-base"
+                      />
+                    )}
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="hidden md:block sticky top-0 w-[25%] bg-[#FFF9D9] mt-5 h-[500px] text-center text-[black]">
+            <h1 className="font-bold text-2xl">Cart</h1>
+            {cartMeals && cartMeals.length !== 0 ?
+              <>
+                {cartMeals.map((meal: any) =>
+                  <>
+                    <CartProductInfo
+                      key={meal.selectedMeal.id}
+                      ProductID={meal.selectedMeal.id}
+                      CartProductImg={meal.selectedMeal.img_url.small}
+                      CartproductTitle={meal.selectedMeal.title}
+                      CartProductOption={meal.options}
+                      cartContainerWrapper_classname="flex justify-between p-3"
+                      cartContainer_classname="flex"
+                      cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-[14px]"
+                      cartContainerProductDetailOption_classname="text-xs"
+                    />
+                  </>
+                )}
+                <div className="flex flex-col items-center justify-end">
+                  <Link href="/pages/checkout">
+                    <ButtonCard
+                      button_text="Checkout"
+                      button_Classname="w-[200px] p-[10px] bg-[#C00A27] text-white rounded-full"
+                    />
+                  </Link>
+                </div>
+              </> : <div className="flex flex-col justify-center items-center">
+                <p>No products in the cart</p>
+                <p>
+                  <Image className="w-[150px]" src={Shoppingcart} alt="Shopping cart" />
+                </p>
+              </div>}
+          </div>
+        </div>
+        {showProdDetailOverlay !== false &&
+          <div >
+            <ProductDetailsOverlay
+              clickedMeal={clickedMeal !== '' && clickedMeal}
+              closeProductDetailOverlay={closeDetailOverlay}
+            />
+          </div>
+        }
+
+      </>
+    )
+  }
+  else {
+    return <div className="w-100vw h-60vh bg-[white] flex justify-center">
+      <Image src={Loader} alt="Menu loading" />
+    </div>
+  }
+};
+export default Home;
+
