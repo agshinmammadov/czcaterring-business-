@@ -86,17 +86,7 @@ const Home = () => {
                 </a>
               )}
             </ul>
-          </div>
-
-           {/* For mobile devices */}
-           {/* <div className="md:hidden p-4 w-full mt-5 border-b-2">
-            <Search
-              search_div_classname="bg-gray-300"
-              search_input_classname="p-2 bg-white border-2 w-full"
-              onChange={HandleSearchResult}
-            />
-          </div> */}
-          
+          </div>          
           {/* For mobile devices */}
           {showMenuCategories &&
             <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4">
@@ -110,11 +100,7 @@ const Home = () => {
                 </a>
               )}
             </ul>          
-          }
-         
-
-         
-
+          }     
           <div className="w-[90%] md:w-[50%] min-h-50vh mt-5 min-w-[250px]">
             {filteredData.map((item: any) =>
               <div className="mt-10" key={item.id}>
@@ -160,7 +146,7 @@ const Home = () => {
                   </>
                 )}
                 <div className="flex flex-col items-center justify-end">
-                  <Link href="/pages/checkout">
+                  <Link href="/pages/checkout/">
                     <ButtonCard
                       button_text="Checkout"
                       button_Classname="w-[200px] p-[10px] bg-[#C00A27] text-white rounded-full"

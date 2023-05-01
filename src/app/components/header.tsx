@@ -44,6 +44,7 @@ const Header = () => {
         </div>
         <div className="gap-3 flex items-center md:hidden">
           <button onClick={showhideModalCart}><Image className="w-6" src={Carticon} alt="Shopping cart icon"/></button>
+          <p className="absolute top-0 mt-3 ml-3 text-center font-bold text-[10px] text-[white] bg-[black] w-[15px] h-[15px]  rounded-full">{cartMeals !== null ? cartMeals.length : 0}</p>
           <button onClick={showHideMenuCategories} className="font-bold text-white">MENU</button>
         </div>
       </nav>

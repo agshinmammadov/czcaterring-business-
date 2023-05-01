@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/actions/action";
 import carticon from "../../media/cart-icon.png"
 import Image from "next/image";
+// import CustomNumberInput from "../components/customNumberInput";
 
 type Productdetailprops = {
   clickedMeal: any
@@ -13,11 +14,12 @@ type Productdetailprops = {
 
 const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
   clickedMeal, closeProductDetailOverlay }) => {
-    const [mealData, setMealData] = useState({
-      selectedMeal: "",
-      options: [],
-      specialRequest: ""
-    });
+  const [singleOptCount, setSingleOptCount] = useState(1)
+  const [mealData, setMealData] = useState({
+    selectedMeal: "",
+    options: [],
+    specialRequest: ""
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -61,7 +63,7 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
   const handleSingleOptionCountChange = ((e: any) => {
     setMealData({
       ...mealData,
-      options: mealData.options.map((el: any) => { return { ...el, count: e.target.value } })
+      options: mealData.options.map((el: any) => { return { ...el, count: singleOptCount } })
     })
   })
 
@@ -76,6 +78,9 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
     dispatch(addToCart(mealData));
   }
 
+  const changeSingleOptCount = () => {
+    setSingleOptCount(singleOptCount + 1)
+  }
 
   if (mealData.selectedMeal !== "") {
 
@@ -143,7 +148,15 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
               {mealData.selectedMeal.opt_groups.length === 0 &&
                 <>
                   <h1 className="font-bold"> Order total: <span className="text-[#cdaa7c] font-bold">${totalAmount}</span> </h1>
-                  <input type='number' defaultValue="1" step="1" min="1" className="border-2 w-16 h-8  border-content" onChange={handleSingleOptionCountChange} />
+                  <div className="flex font-[20px] text-center">
+                    <input className="border-2 w-[70px] h-[60px] border" defaultValue="1" type='number' step="1" min="1" onChange={handleSingleOptionCountChange} />
+
+                    <div className="flex flex-col justify-center">
+                      <button className="border-2 p-2  w-[30px] h-[30px] ml-[-30px] bg-[white]" onClick={changeSingleOptCount}>+</button>
+                      <button className="border-2 p-2 w-[30px] h-[30px] ml-[-30px] bg-[white]">-</button>
+                    </div>
+                  
+                  </div>
                   <button className="flex rounded-3xl px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right m-5" onClick={handleAddtoCart}><Image src={carticon} className="w-[20px]" alt="Cart icon" /> Add to cart</button>
                 </>
               }
