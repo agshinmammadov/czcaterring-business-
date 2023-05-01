@@ -5,18 +5,28 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/actions/action";
 import carticon from "../../media/cart-icon.png"
 import Image from "next/image";
-// import CustomNumberInput from "../components/customNumberInput";
 
+type MealOption = {
+  optionName: string,
+  price: any,
+  count: any ,
+  id: string
+}
+
+type MealData = {
+  selectedMeal: any,
+  options: MealOption[],
+  specialRequest: string
+}
 type Productdetailprops = {
   clickedMeal: any
   closeProductDetailOverlay: any
-}
+  }
 
 const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
   clickedMeal, closeProductDetailOverlay }) => {
-  const [singleOptCount, setSingleOptCount] = useState(1)
-  const [mealData, setMealData] = useState({
-    selectedMeal: "",
+  const [mealData, setMealData] = useState<MealData>({
+    selectedMeal: null,
     options: [],
     specialRequest: ""
   });
@@ -35,36 +45,39 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
 
   }, []);
 
+
   useEffect(() => {
     // Update state based on condition
-    if (mealData.selectedMeal !== "" && mealData.selectedMeal.opt_groups.length === 0) {
-      setMealData({ ...mealData, options: [...mealData.options, { count: 1, price: mealData.selectedMeal.price }] });
+    if (mealData.selectedMeal !== null && mealData.selectedMeal.opt_groups.length === 0) {
+      setMealData((prevState:any) => ({
+        ...prevState,
+        options: [...prevState.options, { count: 1, price: prevState.selectedMeal.price }]
+      }));
     }
-
   }, [mealData.selectedMeal]);
 
 
   const handleCheckboxChange = (e: any) => {
     const choosedOptionSet = { optionName: e.target.value, price: e.target.name, count: 1, id: e.target.id }
-    setMealData({
-      ...mealData,
+    setMealData((prevState:any)=>({
+      ...prevState,
       options: mealData.options.find((set: any) => set.id === e.target.id) ? mealData.options.filter((el: any) => el.id !== e.target.id) : [...mealData.options, choosedOptionSet]
-    })
+    }))
   };
 
 
   const handleCountChange = (e: any) => {
-    setMealData({
-      ...mealData,
+    setMealData((prevState:any)=>({
+      ...prevState,
       options: mealData.options.map((el: any) => el.id === e.target.id ? { ...el, count: e.target.value } : el)
-    })
+    }))
   }
 
   const handleSingleOptionCountChange = ((e: any) => {
-    setMealData({
-      ...mealData,
-      options: mealData.options.map((el: any) => { return { ...el, count: singleOptCount } })
-    })
+    setMealData((prevState:any)=>({
+      ...prevState,
+      options: mealData.options.map((el: any) => { return { ...el, count: e.target.value } })
+    }))
   })
 
   const handleSpecialRequest = (e: any) => {
@@ -78,11 +91,9 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
     dispatch(addToCart(mealData));
   }
 
-  const changeSingleOptCount = () => {
-    setSingleOptCount(singleOptCount + 1)
-  }
 
-  if (mealData.selectedMeal !== "") {
+
+  if (mealData.selectedMeal !== null) {
 
     const requiredOptions = mealData.selectedMeal.opt_groups.filter((e: any) => e.required === 1);
     const clickingRequiredOption = requiredOptions.some((reqObj: any) => {
@@ -149,14 +160,7 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
                 <>
                   <h1 className="font-bold"> Order total: <span className="text-[#cdaa7c] font-bold">${totalAmount}</span> </h1>
                   <div className="flex font-[20px] text-center">
-                    <input className="border-2 w-[70px] h-[60px] border" defaultValue="1" type='number' step="1" min="1" onChange={handleSingleOptionCountChange} />
-
-                    <div className="flex flex-col justify-center">
-                      <button className="border-2 p-2  w-[30px] h-[30px] ml-[-30px] bg-[white]" onClick={changeSingleOptCount}>+</button>
-                      <button className="border-2 p-2 w-[30px] h-[30px] ml-[-30px] bg-[white]">-</button>
-                    </div>
-                  
-                  </div>
+                    <input className="border-2 w-[70px] h-[60px] border" defaultValue="1" type='number' step="1" min="1" onChange={handleSingleOptionCountChange} /></div>
                   <button className="flex rounded-3xl px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right m-5" onClick={handleAddtoCart}><Image src={carticon} className="w-[20px]" alt="Cart icon" /> Add to cart</button>
                 </>
               }
@@ -172,7 +176,6 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
               }
             </div>
           </div>
-          <button className="float-right bg-gray-600 mb-[20px] mr-[20px] text-white py-2 px-4 rounded-md" onClick={closeProductDetailOverlay}>Close</button>
         </div>
       </div>
     </>)

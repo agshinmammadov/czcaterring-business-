@@ -34,6 +34,7 @@ const Home = () => {
     };
     fetchProducts();
   }, []);
+  console.log(clickedMeal)
 
   useEffect(() => {
     if (showProdDetailOverlay) {
@@ -43,8 +44,8 @@ const Home = () => {
     }
   }, [showProdDetailOverlay])
 
-
-  const filteredData = products.filter((category) => {
+  
+  const filteredData = products.filter((category:any) => {
     return category.items.some((item: any) =>
       item.title.toLowerCase().includes(searchValue.toLowerCase())
     );
@@ -52,12 +53,10 @@ const Home = () => {
 
   const HandleSearchResult = (e: any) => {
     setSearchValue(e.target.value)
-
   }
 
-
   const SelectedMealHandler = (event: SyntheticEvent<HTMLDivElement>) => {
-    const firstResultOfClick: any = event.currentTarget.getAttribute('identifier')
+    const firstResultOfClick: any = event.currentTarget.getAttribute('id')
     setClickedMeal(firstResultOfClick)
     setShowProdDetailOverlay(true)
   }
@@ -71,7 +70,7 @@ const Home = () => {
     return (
       <>
         <div className="flex flex-row justify-center md:justify-start 2xl:justify-center flex-wrap bg-white text-black h-full px-5 ">
-          <div className=" md:block border-b-2 w-full md:sticky md:top-0 md:w-[25%] md:max-w-[350px] md:h-[600px] p-4  mt-5">
+          <div className=" md:block w-full md:sticky md:top-0 md:w-[25%] md:max-w-[350px] md:h-[600px] p-4  mt-5">
             <Search          
               search_input_classname="p-2 bg-white border border-slate-600 w-full rounded-md"
               onChange={HandleSearchResult}
@@ -110,7 +109,7 @@ const Home = () => {
                     item.title.toLowerCase().includes(searchValue.toLowerCase())).map((el: any) =>
                       <Productcard
                         key={el.id}
-                        identifier={el.id}
+                        id={el.id}
                         title={el.title}
                         img_url={el.img_url.large}
                         min_price={el.min_price}
@@ -126,6 +125,8 @@ const Home = () => {
               </div>
             )}
           </div>
+
+          {/* Mini Cart modal */ }
           <div className="hidden md:block sticky top-0 w-[25%] bg-[#FFF9D9] mt-5 h-[500px] text-center text-[black]">
             <h1 className="font-bold text-2xl">Cart</h1>
             {cartMeals && cartMeals.length !== 0 ?

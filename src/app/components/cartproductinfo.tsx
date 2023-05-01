@@ -39,7 +39,7 @@ const CartProductInfo: React.FC<CartProductProps> = ({
         dispatch(removeFromCart(e.target.name))
     }
     return (
-        <div className={cartContainerWrapper_classname}>
+        <div className={cartContainerWrapper_classname} key={ProductID}>
             <div className={cartContainer_classname}>
                 <div><img className={cartProductImage_classname} src={CartProductImg} /></div>
                 <div className={cartContainerProductDetail_classname}>

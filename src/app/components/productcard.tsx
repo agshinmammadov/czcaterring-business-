@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FC } from "react";
 import React from "react";
 
@@ -11,10 +12,8 @@ type ProductProps = {
   img_classname?:string
   title_classname?:string
   price_classname?:string
-  identifier:string | undefined
+  id?:any
 };
-
-
 
 const Productcard: React.FC<ProductProps> = ({ 
   title, 
@@ -26,10 +25,10 @@ const Productcard: React.FC<ProductProps> = ({
   img_classname,
   title_classname,
   price_classname,
-  identifier}) => {
+  id}) => {
   return (
-    <div className={container_classname} onClick={onClick} identifier = {identifier} >
-      <img src={img_url} alt={title} className={img_classname}/>
+    <div className={container_classname} onClick={onClick} id= {id} >
+      <Image src={img_url} alt={title} className={img_classname}/>
       <h3 className={title_classname}>{title}</h3>
       {min_price && max_price ? (
         <p className={price_classname}>$ {min_price} - {max_price}</p>

@@ -68,13 +68,6 @@ export default function checkout() {
     })
   }
 
-  // const handledeliverytTypeOption = (e:any) => {
-  //   setCustomerDetails({
-  //     ...customerDetails,
-  //     deliverytType:e.target.value
-  //   })
-  // }
-
   const handlePhoneOption = (e:any) => {
     setCustomerDetails({
       ...customerDetails,
