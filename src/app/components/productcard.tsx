@@ -28,7 +28,7 @@ const Productcard: React.FC<ProductProps> = ({
   id}) => {
   return (
     <div className={container_classname} onClick={onClick} id= {id} >
-      <Image src={img_url} alt={title} className={img_classname}/>
+      <img src={img_url} alt={title} className={img_classname}/>
       <h3 className={title_classname}>{title}</h3>
       {min_price && max_price ? (
         <p className={price_classname}>$ {min_price} - {max_price}</p>

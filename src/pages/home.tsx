@@ -3,14 +3,14 @@ import Search from "@/app/components/search";
 import Sidebar from "@/app/components/sidebar";
 import Link from "next/link";
 import { useEffect, useState, SyntheticEvent } from "react";
-import Productcard from "../components/productcard";
+import Productcard from "@/app/components/productcard";
 import ProductDetailsOverlay from "./proddetailsoverlay";
 import CartProductInfo from "@/app/components/cartproductinfo";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonCard from "@/app/components/button";
 import Image from "next/image";
-import Loader from "../../media/foodloader.gif";
-import Shoppingcart from "../../media/shopping-cart.png";
+import Loader from "../media/foodloader.gif";
+import Shoppingcart from "../media/shopping-cart.png";
 import { menuCategories } from "@/redux/actions/action";
 
 const Home = () => {
@@ -34,7 +34,6 @@ const Home = () => {
     };
     fetchProducts();
   }, []);
-  console.log(clickedMeal)
 
   useEffect(() => {
     if (showProdDetailOverlay) {
@@ -126,9 +125,9 @@ const Home = () => {
             )}
           </div>
 
-          {/* Mini Cart modal */ }
-          <div className="hidden md:block sticky top-0 w-[25%] bg-[#FFF9D9] mt-5 h-[500px] text-center text-[black]">
-            <h1 className="font-bold text-2xl">Cart</h1>
+          {/* Mini Cart Sidebar */ }
+          <div className="hidden md:block sticky top-0 w-[25%]  mt-5 h-[500px] text-center text-[black]">
+            <h1 className="font-bold text-2xl">  Cart</h1>
             {cartMeals && cartMeals.length !== 0 ?
               <>
                 {cartMeals.map((meal: any) =>
@@ -139,7 +138,7 @@ const Home = () => {
                       CartProductImg={meal.selectedMeal.img_url.small}
                       CartproductTitle={meal.selectedMeal.title}
                       CartProductOption={meal.options}
-                      cartContainerWrapper_classname="flex justify-between p-3"
+                      cartContainerWrapper_classname="flex justify-between p-3 bg-gray-100"
                       cartContainer_classname="flex"
                       cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-[14px]"
                       cartContainerProductDetailOption_classname="text-xs"
@@ -154,11 +153,11 @@ const Home = () => {
                     />
                   </Link>
                 </div>
-              </> : <div className="flex flex-col justify-center items-center">
-                <p>No products in the cart</p>
+              </> : <div className="flex flex-col justify-center items-center bg-gray-100">
                 <p>
-                  <Image className="w-[150px]" src={Shoppingcart} alt="Shopping cart" />
+                  <Image className="w-[100px]" src={Shoppingcart} alt="Shopping cart" />
                 </p>
+                <p>Your cart is empty.</p>
               </div>}
           </div>
         </div>

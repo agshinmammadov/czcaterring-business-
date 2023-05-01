@@ -3,7 +3,7 @@ import { FC } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/actions/action";
-import carticon from "../../media/cart-icon.png"
+import carticon from "../media/cart-icon.png"
 import Image from "next/image";
 
 type MealOption = {

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import PageLayout from "@/app/components/pagelayout";
 import Link from "next/link";
 import Image from "next/image";
-import ShoppingcartImage from "../../../media/shopping-cart.png"
+import ShoppingcartImage from "../../media/shopping-cart.png"
 
 
 export default function Cart() {
