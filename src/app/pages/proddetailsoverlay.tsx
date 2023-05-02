@@ -3,13 +3,13 @@ import { FC } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "@/redux/actions/action";
-import carticon from "../media/cart-icon.png"
+import carticon from "../../media/cart-icon.png"
 import Image from "next/image";
 
 type MealOption = {
   optionName: string,
   price: any,
-  count: any ,
+  count: any,
   id: string
 }
 
@@ -21,7 +21,7 @@ type MealData = {
 type Productdetailprops = {
   clickedMeal: any
   closeProductDetailOverlay: any
-  }
+}
 
 const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
   clickedMeal, closeProductDetailOverlay }) => {
@@ -49,7 +49,7 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
   useEffect(() => {
     // Update state based on condition
     if (mealData.selectedMeal !== null && mealData.selectedMeal.opt_groups.length === 0) {
-      setMealData((prevState:any) => ({
+      setMealData((prevState: any) => ({
         ...prevState,
         options: [...prevState.options, { count: 1, price: prevState.selectedMeal.price }]
       }));
@@ -59,7 +59,7 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
 
   const handleCheckboxChange = (e: any) => {
     const choosedOptionSet = { optionName: e.target.value, price: e.target.name, count: 1, id: e.target.id }
-    setMealData((prevState:any)=>({
+    setMealData((prevState: any) => ({
       ...prevState,
       options: mealData.options.find((set: any) => set.id === e.target.id) ? mealData.options.filter((el: any) => el.id !== e.target.id) : [...mealData.options, choosedOptionSet]
     }))
@@ -67,14 +67,14 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
 
 
   const handleCountChange = (e: any) => {
-    setMealData((prevState:any)=>({
+    setMealData((prevState: any) => ({
       ...prevState,
       options: mealData.options.map((el: any) => el.id === e.target.id ? { ...el, count: e.target.value } : el)
     }))
   }
 
   const handleSingleOptionCountChange = ((e: any) => {
-    setMealData((prevState:any)=>({
+    setMealData((prevState: any) => ({
       ...prevState,
       options: mealData.options.map((el: any) => { return { ...el, count: e.target.value } })
     }))
@@ -145,35 +145,52 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
                   </div>
                 )}
               </div>
-              <div>
+              <div className="mt-[20px]">
                 <h1 className="font-bold">Special Request?</h1>
                 <p className="italic">Add them here. We’ll do our best to make it happen.</p>
-                <textarea className="bg-white w-full border-2 border-gray-400 rounded-[20px] min-h-12 resize-none" onChange={handleSpecialRequest} />
+                <textarea className="bg-white w-full border-gray-400 min-h-12 resize-none border rounded-xl px-2 pb-[70px]" onChange={handleSpecialRequest} />
               </div>
-              {mealData.options.length !== 0 && mealData.selectedMeal.opt_groups.length !== 0 &&
-                <h1 className="font-bold"> Order total: <span className="text-[#cdaa7c] font-bold">
-                  ${totalAmount}
-                </span>
-                </h1>
-              }
-              {mealData.selectedMeal.opt_groups.length === 0 &&
-                <>
-                  <h1 className="font-bold"> Order total: <span className="text-[#cdaa7c] font-bold">${totalAmount}</span> </h1>
-                  <div className="flex font-[20px] text-center">
-                    <input className="border-2 w-[70px] h-[60px] border" defaultValue="1" type='number' step="1" min="1" onChange={handleSingleOptionCountChange} /></div>
-                  <button className="flex rounded-3xl px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right m-5" onClick={handleAddtoCart}><Image src={carticon} className="w-[20px]" alt="Cart icon" /> Add to cart</button>
-                </>
-              }
+              <div className="flex flex-wrap justify-between items-end">
+                {mealData.options.length !== 0 && mealData.selectedMeal.opt_groups.length !== 0 &&
+                  <h1 className="font-bold"> Order total: <span className="text-[#cdaa7c] font-bold">
+                    ${totalAmount}
+                  </span>
+                  </h1>
+                }
+                {mealData.selectedMeal.opt_groups.length === 0 &&
+                  <>
+                    <div className="mt-[20px]">
+                      <h1 className="font-bold"> Order total: <span className="text-[#cdaa7c] font-bold">${totalAmount}</span> </h1>
+                      <div className="flex font-[20px] text-center">
+                        <div className="flex flex-col items-start mt-[20px]">
+                          <p className="font-bold">Select Quantity:</p>
+                          <p>
+                            <select className="py-1 px-3 border-2 rounded">
+                              <option>1 dozen</option>
+                              <option>2 dozen</option>
+                              <option>3 dozen</option>
+                              <option>4 dozen</option>
+                            </select>
+                            <span className="text-xs"> Will serve 12 people</span>
+                          </p>
+                        </div>
+                        {/* <input className="border-2 w-[70px] h-[60px] border" defaultValue="1" type='number' step="1" min="1" onChange={handleSingleOptionCountChange} /> */}
+                      </div>
+                    </div>
+                    <button className="flex rounded-3xl px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right" onClick={handleAddtoCart}><Image src={carticon} className="w-[20px]" alt="Cart icon" /> Add to cart</button>
+                  </>
+                }
 
-              {clickingRequiredOption &&
-                <button className="flex rounded-3xl px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right m-5" onClick={handleAddtoCart}>
-                  <Image src={carticon} className="w-[20px]" alt="Cart icon" /> Add to cart</button>
-              }
+                {clickingRequiredOption &&
+                  <button className="flex rounded-3xl px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right" onClick={handleAddtoCart}>
+                    <Image src={carticon} className="w-[20px]" alt="Cart icon" /> Add to cart</button>
+                }
 
-              {mealData.selectedMeal.opt_groups.length !== 0 && requiredOptions.length === 0 &&
-                <button className="flex rounded-3xl px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right m-5" onClick={handleAddtoCart}>
-                  <Image src={carticon} className="w-[20px]" alt="Cart icon" /> Add to cart</button>
-              }
+                {mealData.selectedMeal.opt_groups.length !== 0 && requiredOptions.length === 0 &&
+                  <button className="flex rounded-3xl px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right m-5" onClick={handleAddtoCart}>
+                    <Image src={carticon} className="w-[20px]" alt="Cart icon" /> Add to cart</button>
+                }
+              </div>
             </div>
           </div>
         </div>

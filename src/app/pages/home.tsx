@@ -9,9 +9,10 @@ import CartProductInfo from "@/app/components/cartproductinfo";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonCard from "@/app/components/button";
 import Image from "next/image";
-import Loader from "../media/foodloader.gif";
-import Shoppingcart from "../media/shopping-cart.png";
+import Loader from "../../media/foodloader.gif";
+import Shoppingcart from "../../media/shopping-cart.png";
 import { menuCategories } from "@/redux/actions/action";
+import bookmark from "../../media/bookmarkicon.png"
 
 const Home = () => {
   const [products, setProducts] = useState<[]>([]);
@@ -19,7 +20,7 @@ const Home = () => {
   const [showProdDetailOverlay, setShowProdDetailOverlay] = useState(false);
   const [clickedMeal, setClickedMeal] = useState('');
 
-  const showMenuCategories = useSelector((state:any) => state.categoriesReducer);
+  const showMenuCategories = useSelector((state: any) => state.categoriesReducer);
 
   const cartMeals = useSelector((state: any) => state.cartReducer);
   const dispatch = useDispatch();
@@ -43,8 +44,8 @@ const Home = () => {
     }
   }, [showProdDetailOverlay])
 
-  
-  const filteredData = products.filter((category:any) => {
+
+  const filteredData = products.filter((category: any) => {
     return category.items.some((item: any) =>
       item.title.toLowerCase().includes(searchValue.toLowerCase())
     );
@@ -63,14 +64,14 @@ const Home = () => {
   const closeDetailOverlay = () => {
     setShowProdDetailOverlay(false)
   }
-  
+
 
   if (products.length != 0) {
     return (
       <>
         <div className="flex flex-row justify-center md:justify-start 2xl:justify-center flex-wrap bg-white text-black h-full px-5 ">
           <div className=" md:block w-full md:sticky md:top-0 md:w-[25%] md:max-w-[350px] md:h-[600px] p-4  mt-5">
-            <Search          
+            <Search
               search_input_classname="p-2 bg-white border border-slate-600 w-full rounded-md"
               onChange={HandleSearchResult}
             />
@@ -84,7 +85,7 @@ const Home = () => {
                 </a>
               )}
             </ul>
-          </div>          
+          </div>
           {/* For mobile devices */}
           {showMenuCategories &&
             <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4">
@@ -97,8 +98,8 @@ const Home = () => {
                   />
                 </a>
               )}
-            </ul>          
-          }     
+            </ul>
+          }
           <div className="w-[90%] md:w-[50%] min-h-50vh mt-5 min-w-[250px]">
             {filteredData.map((item: any) =>
               <div className="mt-10" key={item.id}>
@@ -125,9 +126,12 @@ const Home = () => {
             )}
           </div>
 
-          {/* Mini Cart Sidebar */ }
-          <div className="hidden md:block sticky top-0 w-[25%]  mt-5 h-[500px] text-center text-[black]">
-            <h1 className="font-bold text-2xl">  Cart</h1>
+          {/* Mini Cart Sidebar */}
+          <div className="hidden md:block sticky top-0 w-[25%]  mt-5 h-[500px] text-[black]">
+            <div className="flex items-center">
+              <Image className="w-[25px] h-[25px]" src={bookmark} alt="bookmark icon" />
+              <h1 className="font-bold text-2xl"> Cart</h1>
+            </div>
             {cartMeals && cartMeals.length !== 0 ?
               <>
                 {cartMeals.map((meal: any) =>
@@ -145,7 +149,7 @@ const Home = () => {
                     />
                   </>
                 )}
-                <div className="flex flex-col items-center justify-end">
+                <div className="flex flex-col items-center justify-end bg-gray-100 pb-5">
                   <Link href="/pages/checkout/">
                     <ButtonCard
                       button_text="Checkout"
@@ -153,7 +157,7 @@ const Home = () => {
                     />
                   </Link>
                 </div>
-              </> : <div className="flex flex-col justify-center items-center bg-gray-100">
+              </> : <div className="flex flex-col justify-center items-center bg-gray-100 min-h-[50vh] rounded-lg">
                 <p>
                   <Image className="w-[100px]" src={Shoppingcart} alt="Shopping cart" />
                 </p>

@@ -3,7 +3,7 @@ import PageLayout from "@/app/components/pagelayout";
 import Link from "next/link";
 import React, {useState} from "react";
 import { useSelector } from "react-redux";
-import Leftarrowicon from "../../media/left-arrow.png"
+import Leftarrowicon from "../../../media/left-arrow.png"
 import Image from "next/image";
 import CartProductInfo from "@/app/components/cartproductinfo";
 
