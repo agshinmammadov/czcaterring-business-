@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 const SubTotalAmount = ()=> {
     const cartMeals = useSelector((state: any) => state.cartReducer);
     
-    const Amount= cartMeals.reduce((acc: any, obj: any) => {
+    const Amount = cartMeals !==null &&  cartMeals.reduce((acc: any, obj: any) => {
         const options = obj.options;
         options.forEach((option: any) => {
             const price = Number(option.price);
@@ -15,7 +15,7 @@ const SubTotalAmount = ()=> {
         });
         return acc;
     }, 0).toFixed(2)
-    return Amount;
+    console.log(Amount);
 }
 export default SubTotalAmount;
 console.log(SubTotalAmount)

@@ -78,20 +78,21 @@ export default function Cart() {
               </Link>
             </div>
           </div>
-        </div> : <div className="flex flex-col justify-center items-center min-h-[30vh] bg-[white] text-[black]">
-          <p>No products in the cart</p>
-          <div>
-            <Image className="w-[150px]" src={ShoppingcartImage} alt="Shopping cart empty" />
-          </div>
-          <div className="mt-5 mb-[30px]">
-            <Link href="/">
-              <ButtonCard
-                button_text="Back to menu"
-                button_Classname="rounded-full w-[50%] p-[20px] bg-gray-300 min-w-[300px]"
-              />
-            </Link>
-          </div>
-        </div>}
+        </div> :
+          <div className="flex flex-col justify-center items-center min-h-[30vh] bg-[white] text-[black] mt-[40px]">
+            <p className="font-bold text-xl">Your cart is empty.</p>
+            <div>
+              <Image className="w-[100px]" src={ShoppingcartImage} alt="Shopping cart empty" />
+            </div>
+            <div className="mt-5 mb-[30px]">
+              <Link href="/">
+                <ButtonCard
+                  button_text="Back to menu"
+                  button_Classname="rounded-full w-[50%] p-[20px] bg-gray-300 min-w-[300px]"
+                />
+              </Link>
+            </div>
+          </div>}
     </PageLayout>
   )
 }

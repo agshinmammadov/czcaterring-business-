@@ -38,10 +38,14 @@ const Header = () => {
     <header className={styles.header}>
       <nav className="flex fixed md:relative w-full top-0 p-3 justify-between md:justify-center items-center bg-[#C00A27] md:bg-transparent">
         <div className="w-[100px] md:hidden">
-          <Image src={Logo} alt="Logo" />
+          <Link href="/">
+            <Image src={Logo} alt="Logo" />
+          </Link>
         </div>
         <div className="mt-5 hidden md:block">
-          <Image className="w-44" src={Logo} alt="Logo" />
+          <Link href="/">
+            <Image className="w-44" src={Logo} alt="Logo" />
+          </Link>
         </div>
         <div className="gap-3 flex items-center md:hidden">
           <button onClick={showhideModalCart}><Image className="w-6" src={Carticon} alt="Shopping cart icon" /></button>
@@ -90,7 +94,7 @@ const Header = () => {
                 <div className="w-[80%]">
                   <Link href="/pages/checkout">
                     <ButtonCard
-                      subtotalamount={SubTotalAmount}
+                      // subtotalamount={SubTotalAmount}
                       button_text="Checkout"
                       button_Classname="px-3 w-full py-2 bg-[#C00A27] text-white c mt-5 rounded-lg"
                     />
@@ -98,16 +102,17 @@ const Header = () => {
                 </div>
               </div>
             </> : <div className="flex flex-col justify-center items-center">
-                    <p>Your cart is empty.</p>
-                    <div className="w-[80%] mt-5">
-                      <Link href="/">
-                        <ButtonCard
-                          button_text="+add items"
-                          button_Classname="px-3 py-2 w-full rounded-lg bg-gray-300 md:hidden"
-                        />
-                      </Link>
-                    </div>
-                </div>
+              <p>Your cart is empty.</p>
+              <div className="w-[80%] mt-5">
+                <Link href="/">
+                  <ButtonCard
+                    button_text="Back to menu"
+                    onClick={hideModalCart}
+                    button_Classname="px-3 py-2 w-full rounded-lg bg-gray-300 md:hidden"
+                  />
+                </Link>
+              </div>
+            </div>
           }
         </div>
       }

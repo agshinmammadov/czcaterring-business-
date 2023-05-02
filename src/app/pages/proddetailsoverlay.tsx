@@ -88,7 +88,8 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
   }
 
   const handleAddtoCart = () => {
-    dispatch(addToCart(mealData));
+    closeProductDetailOverlay()
+    return dispatch(addToCart(mealData));
   }
 
 
