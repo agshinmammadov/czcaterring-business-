@@ -13,7 +13,8 @@
         "ecmaVersion": "latest"
     },
     "plugins": [
-        "react"
+        "react",
+        "next"
     ],
     "rules": {
       
