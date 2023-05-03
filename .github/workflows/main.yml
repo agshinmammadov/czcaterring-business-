@@ -27,11 +27,11 @@ jobs:
       run: npm install
 
     - name: Deploy to Remote Server
-      uses: agshinmammadov/ssh-deploy@v2.2.7
+      uses: appleboy/ssh-deploy@v2.2.7
       with:
         ssh_private_key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
         remote_host: ${{ secrets.SERVER_IP }}
         remote_user: ${{ secrets.SERVER_USERNAME }}
         source: ./
-        target: /var/www/mywebsite.com/
+        target: /var/www/html
         args: "-rltgoDzvO --delete -v"
