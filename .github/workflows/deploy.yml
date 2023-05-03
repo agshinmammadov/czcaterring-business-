@@ -26,7 +26,7 @@ jobs:
         path: ${{ github.workspace }}
     - name: Install dependencies and build project
       run: |
-         ssh -i ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/html && npm install && npm run build"
+         ssh -i ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} ${{ secrets.SERVER_DIR }} "npm install && npm run build"
       env:
         SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
         SERVER_IP: ${{ secrets.SERVER_IP }}
