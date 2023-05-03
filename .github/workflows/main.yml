@@ -14,7 +14,7 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
         ARGS: "-rltgoDzvO --delete"
       with:
-        ssh_host: ${{ secrets.SERVER_IP }}
-        ssh_username: ${{ secrets.SERVER_USERNAME }}
-        source: "."
-        target: ${{ secrets.SERVER_DIR }}
+        REMOTE_HOST: ${{ secrets.SERVER_IP }}
+        REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+        SOURCE: "."
+        TARGET: ${{ secrets.SERVER_DIR }}
