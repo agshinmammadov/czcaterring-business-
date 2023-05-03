@@ -13,7 +13,7 @@ env:
 defaults:
   run:
     shell: bash
-    working-directory: ${{ github.workspace }}
+    working-directory: ${{ github.agshinmammadov }}/<czcaterring-business->
 
 jobs:
   deploy:
