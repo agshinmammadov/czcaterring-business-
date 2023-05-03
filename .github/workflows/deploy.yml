@@ -26,8 +26,8 @@ jobs:
         path: ${{ github.workspace }}
     - name: Install dependencies and build project
       env:
-        SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
-        SERVER_IP: ${{ secrets.SERVER_IP }}
+        SERVER_USERNAME: ubuntu
+        SERVER_IP: 54.224.3.158
         SERVER_SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
         SERVER_DIR: ${{ secrets.SERVER_DIR }}
       run: |
