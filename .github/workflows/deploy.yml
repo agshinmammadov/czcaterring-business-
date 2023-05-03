@@ -20,7 +20,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: czcaterring-business-
-        path: ${{ github.workspace }}/czcaterring-business-
+        path: ${{ github.workspace }}
     - name: Install dependencies and build project
       run: ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/html && npm install && npm run build"
     - name: Restart Nginx server
