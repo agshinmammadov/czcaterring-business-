@@ -27,7 +27,7 @@ jobs:
       run: npm install
 
     - name: Deploy to Remote Server
-      uses: easingthemes/ssh-deploy@v2.2.7
+      uses: agshinmammadov/ssh-deploy@v1.0.0
       with:
         ssh_private_key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
         remote_host: ${{ secrets.SERVER_IP }}
