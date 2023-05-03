@@ -33,7 +33,7 @@ jobs:
       run: |
         ssh -i ${{ secrets.PRIVATESSHKEYS }} ubuntu@54.224.3.158 "sudo systemctl restart nginx"
       env:
-        SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
-        SERVER_IP: ${{ secrets.SERVER_IP }}
+        SERVER_USERNAME: ${{ secrets.SERVERUSERNAME }}
+        SERVER_IP: ${{ secrets.SERVERIP }}
         SERVER_SSH_PRIVATE_KEY: ${{ secrets.PRIVATESSHKEYS }}
 
