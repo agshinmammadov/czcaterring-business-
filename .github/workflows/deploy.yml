@@ -19,9 +19,19 @@ jobs:
     - name: Upload project files to server
       uses: actions/upload-artifact@v2
       with:
-        name: czcaterring-business-
+        name: czcaterring-business
         path: ${{ github.workspace }}
     - name: Install dependencies and build project
-      run: ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/html && npm install && npm run build"
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/html && npm install && npm run build"
+      env:
+        SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+        SERVER_SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
     - name: Restart Nginx server
-      run: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}  ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "sudo systemctl restart nginx"
+      run: |
+        ssh ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "sudo systemctl restart nginx"
+      env:
+        SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+        SERVER_IP: ${{ secrets.SERVER_IP }}
+        SERVER_SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
