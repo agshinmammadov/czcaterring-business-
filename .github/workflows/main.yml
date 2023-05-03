@@ -1,20 +1,37 @@
-name: Deploy to Remote Server
+name: Deploy to Server
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+
+env:
+  SERVER_IP: ${{ secrets.SERVER_IP }}
+  SERVER_USERNAME: ${{ secrets.SERVER_USERNAME }}
+  SERVER_SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ${{ github.workspace }}
+
 jobs:
   deploy:
     runs-on: ubuntu-20.04
+
     steps:
-    - name: Checkout Git repository
+    - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: npm install
+
     - name: Deploy to Remote Server
       uses: easingthemes/ssh-deploy@v2.2.7
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
-        ARGS: "-rltgoDzvO --delete -v"
       with:
-        REMOTE_HOST: ${{ secrets.SERVER_IP }}
-        REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
-        SOURCE: "."
-        TARGET: ${{ secrets.SERVER_DIR }}
+        ssh_private_key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+        remote_host: ${{ secrets.SERVER_IP }}
+        remote_user: ${{ secrets.SERVER_USERNAME }}
+        source: ./
+        target: /var/www/mywebsite.com/
+        args: "-rltgoDzvO --delete -v"
