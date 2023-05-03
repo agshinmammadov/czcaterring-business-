@@ -26,7 +26,7 @@ jobs:
         path: ${{ github.workspace }}
     - name: Install dependencies and build project
       run: |
-       ssh -i ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ubuntu@54.224.3.158 "cd /var/www/html && npm install && npm run build"
+       ssh -i ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ubuntu@54.224.3.158 "cd /var/www/html && npm install "
       env:
        SERVER_SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}  
     - name: Restart Nginx server
