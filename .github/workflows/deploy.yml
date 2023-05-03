@@ -20,7 +20,7 @@ jobs:
         key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
         port: 22
     - name: Upload project files to server
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: czcaterring-business
         path: ${{ github.workspace }}
