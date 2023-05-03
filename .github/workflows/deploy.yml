@@ -6,6 +6,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+     env:
+     NODE_VERSION: 16.x
+     with:
+     submodules: 'recursive'
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -18,8 +22,10 @@ jobs:
         port: 22
     - name: Upload project files to server
       uses: actions/upload-artifact@v2
+       env:
+        NODE_VERSION: 16.x
       with:
-        name: project-files
+        name: czcaterring-business-
         path: ${{ github.agshinmammadov }}/<czcaterring-business->
     - name: Install dependencies and build project
       run: ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/html && npm install && npm run build"
