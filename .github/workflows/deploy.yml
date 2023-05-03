@@ -22,6 +22,6 @@ jobs:
         name: project-files
         path: ${{ github.workspace }}
     - name: Install dependencies and build project
-      run: ${{ SERVER_SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/html && npm install && npm run build"
+      run: ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd /var/www/html && npm install && npm run build"
     - name: Restart Nginx server
-      run: ${{ SERVER_SSH_PRIVATE_KEY }}  ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "sudo systemctl restart nginx"
+      run: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}  ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "sudo systemctl restart nginx"
