@@ -31,7 +31,7 @@ jobs:
         SERVER_SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
         SERVER_DIR: ${{ secrets.SERVER_DIR }}
       run: |
-         ssh -i "$env:SERVER_SSH_PRIVATE_KEY" "$env:SERVER_USERNAME"@"$env:SERVER_IP" "$env:SERVER_DIR npm install && npm run build"
+         ssh -i ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "cd ${{ secrets.SERVER_DIR }} && npm install && npm run build"    
     - name: Restart Nginx server
       run: |
         ${{ secrets.SERVER_SSH_PRIVATE_KEY }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_IP }} "sudo systemctl restart nginx"
