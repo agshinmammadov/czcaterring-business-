@@ -218,7 +218,7 @@ export default function Checkout() {
           <div className="flex justify-between p-[30px]">
             <h1 className="font-bold text-base">Subtotal:</h1>
             <p className="font-bold text-base  h-[20px]">
-              ${cartMeals.reduce((acc: any, obj: any) => {
+              ${cartMeals !==null && cartMeals.reduce((acc: any, obj: any) => {
                 const options = obj.options;
                 options.forEach((option: any) => {
                   const price = Number(option.price);

@@ -1,37 +1,82 @@
+// {
+//     "env": {
+//         "browser": true,
+//         "es2023": true
+//     },
+//     "extends": [
+//         "eslint:recommended",
+//         "plugin:react/recommended",
+//         "next"
+//       ],
+//     "overrides": [
+//     ],
+//     "parserOptions": {
+//         "ecmaVersion": "latest"
+//     },
+//     "plugins": [
+//         "react",
+//         "next"
+//     ],
+//     "rules": {
+      
+//         // other rules
+//         "jsx-a11y/no-static-element-interactions": "off",
+//         "jsx-a11y/click-events-have-key-events": "off",
+//         "react/prop-types": "off",
+//         "no-html-link-for-pages": [
+//           "error",
+//           {
+//             "pagesDir": "./src/app/page",
+//             "extensions": [".js", ".jsx", "tsx"]
+//           }
+//         ]
+      
+//     }
+// }
+
 {
     "env": {
-        "browser": true,
-        "es2023": true
+      "browser": true,
+      "node": true,
+      "es6": true
     },
+    "parser": "@typescript-eslint/parser",
     "extends": [
-        "plugin:react/recommended",
-        "standard-with-typescript",
-        "next",
-        "next/core-web-vitals"
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:jsx-a11y/recommended",
+      "next"
     ],
-    "overrides": [
+    "plugins": [
+      "@typescript-eslint",
+      "react",
+      "react-hooks",
+      "jsx-a11y"
     ],
     "parserOptions": {
-        "ecmaVersion": "latest",
-        "project": "./tsconfig.json"
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2021,
+      "sourceType": "module",
+      "project": "./tsconfig.json"
     },
-    "plugins": [
-        "react",
-        "next"
-    ],
     "rules": {
-      
-        // other rules
-        "jsx-a11y/no-static-element-interactions": "off",
-        "jsx-a11y/click-events-have-key-events": "off",
-        "react/prop-types": "off",
-        "no-html-link-for-pages": [
-          "error",
-          {
-            "pagesDir": "./src/app/pages",
-            "extensions": [".js", ".jsx"]
-          }
-        ]
-      
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "react/prop-types": "off",
+      "react/react-in-jsx-scope": "off",
+      "jsx-a11y/anchor-is-valid": "off"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
     }
-}
+  }
+  
+
+
+
