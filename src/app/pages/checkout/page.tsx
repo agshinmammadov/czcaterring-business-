@@ -1,27 +1,39 @@
 "use client"
 import PageLayout from "@/app/components/pagelayout";
 import Link from "next/link";
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Leftarrowicon from "../../../media/left-arrow.png"
 import Image from "next/image";
 import CartProductInfo from "@/app/components/cartproductinfo";
+import { LoadScript, Autocomplete } from '@react-google-maps/api';
+
 
 export default function Checkout() {
   const cartMeals = useSelector((state: any) => state.cartReducer);
+  const [selectedAddress, setSelectedAddress] = useState('');
 
-  const [customerDetails, setCustomerDetails ] = useState({
-    firstName:"",
-    lastName:"",
-    mainAddress:"",
-    optionalAdress:"",
-    city:"",
-    state:"",
-    zipcode:"",
-    deliverytType:"",
-    phone:"",
-    email:"",
-    ordernotes:""
+  interface AutocompleteType {
+    getPlace: () => google.maps.places.PlaceResult | null;
+  }
+  
+  const [autocomplete, setAutocomplete] = useState<AutocompleteType | null>(null);
+  
+
+
+
+  const [customerDetails, setCustomerDetails] = useState({
+    firstName: "",
+    lastName: "",
+    mainAddress: "",
+    optionalAdress: "",
+    city: "",
+    state: "",
+    zipcode: "",
+    deliverytType: "",
+    phone: "",
+    email: "",
+    ordernotes: ""
   })
 
   const handleFirstName = (e: any) => {
@@ -42,51 +54,77 @@ export default function Checkout() {
       mainAddress: e.target.value
     })
   }
-  const handleOptionalAdress = (e:any) => {
+  const handleOptionalAdress = (e: any) => {
     setCustomerDetails({
       ...customerDetails,
       optionalAdress: e.target.value
     })
   }
-  const handleCityOption = (e:any) => {
+  const handleCityOption = (e: any) => {
     setCustomerDetails({
       ...customerDetails,
       city: e.target.value
     })
   }
-  const handleStateOption = (e:any) => {
+  const handleStateOption = (e: any) => {
     setCustomerDetails({
       ...customerDetails,
-      state:e.target.value
+      state: e.target.value
     })
   }
 
-  const handleZipcodeOption = (e:any) => {
+  const handleZipcodeOption = (e: any) => {
     setCustomerDetails({
       ...customerDetails,
-      zipcode:e.target.value
+      zipcode: e.target.value
     })
   }
 
-  const handlePhoneOption = (e:any) => {
+  const handlePhoneOption = (e: any) => {
     setCustomerDetails({
       ...customerDetails,
-      phone:e.target.value
+      phone: e.target.value
     })
   }
-  const handleEmailoption = (e:any) => {
+  const handleEmailoption = (e: any) => {
     setCustomerDetails({
       ...customerDetails,
-      email:e.target.value
+      email: e.target.value
     })
   }
 
-  const handleOrderOption = (e:any) => {
+  const handleOrderOption = (e: any) => {
     setCustomerDetails({
       ...customerDetails,
-      ordernotes:e.target.value
+      ordernotes: e.target.value
     })
   }
+
+
+
+  const handlePlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+      const formattedAddress = place?.formatted_address;
+      if (formattedAddress) {
+        setSelectedAddress(formattedAddress);
+      }
+    } else {
+      console.log('Autocomplete is not loaded yet!');
+    }
+  };
+  
+  
+
+
+  const handleInputChange = (event: any) => {
+    setSelectedAddress(event.target.value);
+  };
+
+
+  const handleAutocompleteLoad = (autocomplete: any) => {
+    setAutocomplete(autocomplete);
+  };
 
 
   return (
@@ -114,35 +152,24 @@ export default function Checkout() {
               <input onChange={handleLastName} className="border-2 rounded-full p-2" id="lastname" type="text" />
             </div>
           </div>
-
-          <div className="flex flex-col mt-[30px] gap-[10px]">
-            <label htmlFor="adress">Adress <span className="text-[red]">*</span></label>
-            <input onChange={handleMainAddress} className="border-2 rounded-full p-2" id="adress" type="text" placeholder="Street Adress" />
-            <input onChange={handleOptionalAdress} className="border-2 rounded-full p-2" type="text" placeholder="Apartment, suit, unit etc. (optional)" />
+          <div className="w-full min-w-300px mt-[30px]">
+            <LoadScript
+              googleMapsApiKey="AIzaSyAqLiHZtGTzYAmJkhBmZnGfOTrB5fBRSvw"
+              libraries={["places"]}
+            >
+              <Autocomplete
+                onLoad={handleAutocompleteLoad}
+                onPlaceChanged={handlePlaceChanged}
+                fields={['formatted_address']}
+              >
+                <input
+                  type="text"
+                  placeholder="Enter address"
+                  className="border-2 rounded-full p-2 w-full"
+                />
+              </Autocomplete>
+            </LoadScript>
           </div>
-
-          <div className="flex flex-wrap gap-[20px] mt-[30px]">
-            <div className="flex flex-col w-full  md:w-[30%]">
-              <label htmlFor="city">City<span className="text-[red]">*</span></label>
-              <input onChange={handleCityOption} className="border-2 rounded-full p-2" id="city" type="text" />
-            </div>
-            <div className="flex flex-col w-full  md:w-[30%]">
-              <label htmlFor="state">State<span className="text-[red]">*</span></label>
-              <input onChange={handleStateOption} className="border-2 rounded-full p-2" id="state" type="text" />
-            </div>
-            <div className="flex flex-col w-full md:w-[30%]">
-              <label htmlFor="zipcode">Zip code<span className="text-[red]">*</span></label>
-              <input onChange={handleZipcodeOption} className="border-2 rounded-full p-2" id="zipcode" type="text" />
-            </div>
-          </div>
-          {/* <div className="mt-[30px]">
-            <p>Delivery <span className="text-[red]">*</span></p>
-            <input type="radio" name="option" id="pickup" checked />
-            <label htmlFor="pickup">Pick up</label>
-
-            <input type="radio" name="option" id="delivery" />
-            <label htmlFor="delivery">Delivery</label>
-          </div> */}
           <div className="flex flex-wrap justify-between  sm:mt-[30px]">
             <div className="flex flex-col w-fullmd:w-[45%] min-w-[300px]">
               <label htmlFor="phone">Phone<span className="text-[red]">*</span></label>
@@ -167,9 +194,9 @@ export default function Checkout() {
             <p className="font-bold">Product</p>
             <p className="font-bold">Total</p>
           </div>
-          {cartMeals.map((meal: any) => (
+          {cartMeals !==null && cartMeals.map((meal: any) => (
             <div className=" border-b-2 bg-[#F5F5F5]" key={meal.selectedMeal.id}>
-              <CartProductInfo                
+              <CartProductInfo
                 ProductID={meal.selectedMeal.id}
                 CartproductTitle={meal.selectedMeal.title}
                 CartProductOption={meal.options}

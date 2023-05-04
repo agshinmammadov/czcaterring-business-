@@ -39,13 +39,13 @@ const CartProductInfo: React.FC<CartProductProps> = ({
         dispatch(removeFromCart(e.target.name))
     }
     return (
-        <div className={cartContainerWrapper_classname} key={ProductID}>
+        <div className={cartContainerWrapper_classname}>
             <div className={cartContainer_classname}>
                 <div><img className={cartProductImage_classname} src={CartProductImg} /></div>
                 <div className={cartContainerProductDetail_classname}>
                     <h1 className={cartProductTitle_classname}>{CartproductTitle}</h1>
                     {CartProductOption.map((opt: any) => {
-                        return <p className={cartContainerProductDetailOption_classname}>
+                        return <p className={cartContainerProductDetailOption_classname} key={opt.id}>
                             x{opt.count} {opt.optionName} ${opt.price}
                         </p>
                     })}
