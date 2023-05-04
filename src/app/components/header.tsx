@@ -37,15 +37,11 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <nav className="flex fixed md:relative w-full top-0 p-3 justify-between md:justify-center items-center bg-[#C00A27] md:bg-transparent">
-        <div className="w-[100px] md:hidden">
-          <Link href="/">
-            <Image src={Logo} alt="Logo" />
-          </Link>
+        <div className="w-[100px] md:hidden">          
+            <Image src={Logo} alt="Logo" />          
         </div>
-        <div className="mt-5 hidden md:block">
-          <Link href="/">
-            <Image className="w-44" src={Logo} alt="Logo" />
-          </Link>
+        <div className="mt-5 hidden md:block">         
+            <Image className="w-44" src={Logo} alt="Logo" />          
         </div>
         <div className="gap-3 flex items-center md:hidden">
           <button onClick={showhideModalCart}><Image className="w-6" src={Carticon} alt="Shopping cart icon" /></button>

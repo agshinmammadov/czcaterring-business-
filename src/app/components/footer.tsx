@@ -20,10 +20,8 @@ export default function Footer() {
                         <Image  src={Instagramicon} alt="Instagram icon" className="w-[40px]" />
                     </Link>
                 </div>
-                <div className="flex justify-center m-10">
-                    <Link href="/">
-                        <Image src={Logo} alt="Footer Logo" />
-                    </Link>
+                <div className="flex justify-center m-10">                    
+                        <Image src={Logo} alt="Footer Logo" />                    
                 </div>
                 <div className="flex justify-center m-10">Memo Shish Kebab | 100 West 23rd, New York, NY 10011 | (212) 381 2115</div>
                 <div className="flex justify-center" > @ 2019 All Rights Reserved</div>

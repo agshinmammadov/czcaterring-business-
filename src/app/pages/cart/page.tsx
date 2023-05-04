@@ -12,10 +12,6 @@ import ShoppingcartImage from "../../../media/shopping-cart.png"
 export default function Cart() {
 
   const cartMeals = useSelector((state: any) => state.cartReducer);
-  console.log(cartMeals)
-
-
-
 
   return (
     <PageLayout>
@@ -62,12 +58,10 @@ export default function Cart() {
           </div>
           <div className="flex flex-wrap mt-[50px] justify-around">
             <div className="mt-5 mb-[30px]">
-              <Link href="/">
                 <ButtonCard
                   button_text="Back to menu"
                   button_Classname="rounded-full w-[50%] p-[20px] bg-gray-300 min-w-[300px]"
-                />
-              </Link>
+                />              
             </div>
             <div className=" mt-5 mb-[30px]">
               <Link href="/pages/checkout">
@@ -84,13 +78,11 @@ export default function Cart() {
             <div>
               <Image className="w-[100px]" src={ShoppingcartImage} alt="Shopping cart empty" />
             </div>
-            <div className="mt-5 mb-[30px]">
-              <Link href="/">
+            <div className="mt-5 mb-[30px]">             
                 <ButtonCard
                   button_text="Back to menu"
                   button_Classname="rounded-full w-[50%] p-[20px] bg-gray-300 min-w-[300px]"
-                />
-              </Link>
+                />              
             </div>
           </div>}
     </PageLayout>

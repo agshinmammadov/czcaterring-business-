@@ -19,9 +19,6 @@ export default function Checkout() {
   
   const [autocomplete, setAutocomplete] = useState<AutocompleteType | null>(null);
   
-
-
-
   const [customerDetails, setCustomerDetails] = useState({
     firstName: "",
     lastName: "",
@@ -46,37 +43,6 @@ export default function Checkout() {
     setCustomerDetails({
       ...customerDetails,
       lastName: e.target.value
-    })
-  }
-  const handleMainAddress = (e: any) => {
-    setCustomerDetails({
-      ...customerDetails,
-      mainAddress: e.target.value
-    })
-  }
-  const handleOptionalAdress = (e: any) => {
-    setCustomerDetails({
-      ...customerDetails,
-      optionalAdress: e.target.value
-    })
-  }
-  const handleCityOption = (e: any) => {
-    setCustomerDetails({
-      ...customerDetails,
-      city: e.target.value
-    })
-  }
-  const handleStateOption = (e: any) => {
-    setCustomerDetails({
-      ...customerDetails,
-      state: e.target.value
-    })
-  }
-
-  const handleZipcodeOption = (e: any) => {
-    setCustomerDetails({
-      ...customerDetails,
-      zipcode: e.target.value
     })
   }
 
@@ -114,13 +80,6 @@ export default function Checkout() {
     }
   };
   
-  
-
-
-  const handleInputChange = (event: any) => {
-    setSelectedAddress(event.target.value);
-  };
-
 
   const handleAutocompleteLoad = (autocomplete: any) => {
     setAutocomplete(autocomplete);
@@ -129,12 +88,10 @@ export default function Checkout() {
 
   return (
     <PageLayout>
-      <div className="ml-[30px] md:ml-[70px] mt-[40px]">
-        <Link href="/">
+      <div className="ml-[30px] md:ml-[70px] mt-[40px]">        
           <button className="bg-[#E8E8E8] py-[10px] px-[20px] rounded-full font-bold flex items-center gap-1">
             <Image className="w-[20px]" src={Leftarrowicon} alt="Arrow image" /> Back to Home
           </button>
-        </Link>
       </div>
 
       <div className="flex flex-wrap justify-around bg-[white] text-[black] min-h-[60vh] md:mx-[30px] gap-[20px]">
