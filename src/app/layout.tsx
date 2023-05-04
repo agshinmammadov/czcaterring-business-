@@ -1,9 +1,6 @@
 "use client"
 import './globals.css';
 import ProviderWrapper from '../redux/provider';
-
-
-
 export default function RootLayout({
   children
 }: {
