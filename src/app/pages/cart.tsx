@@ -64,7 +64,7 @@ export default function Cart() {
                 />              
             </div>
             <div className=" mt-5 mb-[30px]">
-              <Link href="/pages/checkout">
+              <Link href="/checkout">
                 <ButtonCard
                   button_text="Checkout"
                   button_Classname="rounded-full text-[white] w-[50%] p-[20px] bg-[#C00A27] min-w-[300px]"

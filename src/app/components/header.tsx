@@ -80,7 +80,7 @@ const Header = () => {
               )}
               <div className="flex flex-col items-center">
                 <div className="w-[80%] mt-5">
-                  <Link href="/pages/cart">
+                  <Link href="/cart">
                     <ButtonCard
                       button_text="View cart"
                       button_Classname="px-3 py-2 w-full rounded-lg bg-gray-300 "
@@ -88,7 +88,7 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="w-[80%]">
-                  <Link href="/pages/checkout">
+                  <Link href="/checkout">
                     <ButtonCard
                       // subtotalamount={SubTotalAmount}
                       button_text="Checkout"
@@ -100,13 +100,11 @@ const Header = () => {
             </> : <div className="flex flex-col justify-center items-center">
               <p>Your cart is empty.</p>
               <div className="w-[80%] mt-5">
-                <Link href="/">
                   <ButtonCard
                     button_text="Back to menu"
                     onClick={hideModalCart}
                     button_Classname="px-3 py-2 w-full rounded-lg bg-gray-300 md:hidden"
                   />
-                </Link>
               </div>
             </div>
           }

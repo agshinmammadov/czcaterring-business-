@@ -150,7 +150,7 @@ const Home = () => {
                   </>
                 )}
                 <div className="flex flex-col items-center justify-end bg-gray-100 pb-5">
-                  <Link href="/pages/checkout/">
+                  <Link href="/checkout">
                     <ButtonCard
                       button_text="Checkout"
                       button_Classname="w-[200px] p-[10px] bg-[#C00A27] text-white rounded-full"
