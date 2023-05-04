@@ -1,19 +1,23 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2023": true
     },
     "extends": [
         "plugin:react/recommended",
-        "standard-with-typescript"
+        "standard-with-typescript",
+        "next",
+        "next/core-web-vitals"
     ],
     "overrides": [
     ],
     "parserOptions": {
-        "ecmaVersion": "latest"
+        "ecmaVersion": "latest",
+        "project": "./tsconfig.json"
     },
     "plugins": [
-        "react"
+        "react",
+        "next"
     ],
     "rules": {
       
