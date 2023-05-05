@@ -1,4 +1,4 @@
-import { removeFromCart } from "@/redux/actions/action";
+import { removeFromCart } from "../redux/actions/action";
 import React from "react";
 import { useDispatch } from "react-redux";
 import ButtonCard from "./button";

@@ -1,18 +1,15 @@
 "use client"
-import ButtonCard from "@/app/components/button";
-import CartProductInfo from "@/app/components/cartproductinfo";
+import ButtonCard from "../../components/button";
+import CartProductInfo from "../../components/cartproductinfo";
 import React from "react";
 import { useSelector } from "react-redux";
-import PageLayout from "@/app/components/pagelayout";
+import PageLayout from "../../components/pagelayout";
 import Link from "next/link";
 import Image from "next/image";
-import ShoppingcartImage from "../../../media/shopping-cart.png"
-
+import ShoppingcartImage from "../../public/media/shopping-cart.png";
 
 export default function Cart() {
-
   const cartMeals = useSelector((state: any) => state.cartReducer);
-
   return (
     <PageLayout>
       {cartMeals !== null && cartMeals.length !== 0 ?

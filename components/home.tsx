@@ -1,18 +1,18 @@
 'use client'
-import Search from "@/app/components/search";
-import Sidebar from "@/app/components/sidebar";
+import Search from "./search"
+import Sidebar from "./sidebar";
 import Link from "next/link";
 import { useEffect, useState, SyntheticEvent } from "react";
-import Productcard from "@/app/components/productcard";
+import Productcard from "./productcard";
 import ProductDetailsOverlay from "./proddetailsoverlay";
-import CartProductInfo from "@/app/components/cartproductinfo";
+import CartProductInfo from "./cartproductinfo";
 import { useDispatch, useSelector } from "react-redux";
-import ButtonCard from "@/app/components/button";
+import ButtonCard from "./button";
 import Image from "next/image";
-import Loader from "../../media/foodloader.gif";
-import Shoppingcart from "../../media/shopping-cart.png";
-import { menuCategories } from "@/redux/actions/action";
-import bookmark from "../../media/bookmarkicon.png"
+import Loader from "../public/media/foodloader.gif";
+import Shoppingcart from "../public/media/shopping-cart.png";
+import { menuCategories } from "../redux/actions/action";
+import bookmark from "../public/media/bookmarkicon.png"
 
 const Home = () => {
   const [products, setProducts] = useState<[]>([]);
@@ -132,7 +132,7 @@ const Home = () => {
               <Image className="w-[25px] h-[25px]" src={bookmark} alt="bookmark icon" />
               <h1 className="font-bold text-2xl"> Cart</h1>
             </div>
-            {cartMeals && cartMeals.length !== 0 ?
+            {cartMeals!==null && cartMeals.length !== 0 ?
               <>
                 {cartMeals.map((meal: any) =>
                   <>

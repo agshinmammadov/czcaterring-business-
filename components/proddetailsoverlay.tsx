@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { FC } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addToCart } from "@/redux/actions/action";
-import carticon from "../../media/cart-icon.png"
+import { addToCart } from "../redux/actions/action";
+import carticon from "../public/media/cart-icon.png"
 import Image from "next/image";
 
 type MealOption = {

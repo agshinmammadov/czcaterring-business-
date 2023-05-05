@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import Searchicon from "../../media/search.png"
+import Searchicon from "../public/media/search.png"
 
 type Searchprops = {
     search_div_classname?: string,

@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Logo from "../../media/logo.png";
-import Facebookicon from '../../media/facebookicon.png'
-import Twittericon from '../../media/twittericon.png'
-import Instagramicon from '../../media/instagramicon.png'
+import Logo from "../public/media/logo.png";
+import Facebookicon from '../public/media/facebookicon.png'
+import Twittericon from '../public/media/twittericon.png'
+import Instagramicon from '../public/media/instagramicon.png'
 import Link from "next/link";
 
 export default function Footer() {

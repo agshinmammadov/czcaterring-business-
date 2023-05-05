@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider } from "react-redux";
-import configureStore from "@/redux/store";
+import configureStore from "../redux/store";
 
 interface ProviderProps {
     children: React.ReactNode;
@@ -8,7 +8,7 @@ interface ProviderProps {
 
 const ProviderWrapper: React.FC<ProviderProps> = ({ children }) => {
     const store = configureStore();
-
+    
     return (
         <div>
             <Provider store={store}>

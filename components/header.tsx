@@ -1,14 +1,14 @@
 "use client"
 import Image from "next/image";
-import Logo from "../../media/logo.png";
-import Carticon from "../../media/cart-icon.png";
-import styles from '../../styles/header.module.css'
+import Logo from "../public/media/logo.png";
+import Carticon from "../public/media/cart-icon.png";
+import styles from '../styles/header.module.css'
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import ButtonCard from "./button";
 import CartProductInfo from "./cartproductinfo";
 import Link from "next/link";
-import { menuCategories } from "@/redux/actions/action";
+import { menuCategories } from "../redux/actions/action";
 import SubTotalAmount from "./subtotal";
 
 const Header = () => {
@@ -61,7 +61,7 @@ const Header = () => {
           onMouseOut={hideModalCart}
           className="fixed top-[53px] md:top-[85px] md:w-[400px] md:min-h-[70px] md:right-[40px] md:rounded text-[black]  min-h-[90px] bg-[white] p-5 drop-shadow-2xl z-50 w-full"
         >
-          {cartMeals && cartMeals.length !== 0 ?
+          {cartMeals !== null && cartMeals.length !== 0 ?
             <>
               {cartMeals.map((meal: any) =>
                 <div className="max-h-[500px] ">
