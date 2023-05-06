@@ -7,17 +7,17 @@ import Image from "next/image";
 import CartProductInfo from "../../components/cartproductinfo";
 import { LoadScript, Autocomplete } from '@react-google-maps/api';
 import Link from "next/link";
+import AddressFinder from "../../components/GoogleAutocomplete.tsx";
+import GoogleAutocomplete from "../../components/GoogleAutocomplete.tsx";
 
 
 export default function Checkout() {
   const cartMeals = useSelector((state: any) => state.cartReducer);
-  const [selectedAddress, setSelectedAddress] = useState('');
 
-  interface AutocompleteType {
-    getPlace: () => google.maps.places.PlaceResult | null;
-  }
+  const handleAddressSelected = (addressComponents:any) => {
+    console.log('Address components:', addressComponents);
+  };
 
-  const [autocomplete, setAutocomplete] = useState<AutocompleteType | null>(null);
 
   const [customerDetails, setCustomerDetails] = useState({
     firstName: "",
@@ -65,27 +65,6 @@ export default function Checkout() {
       ordernotes: e.target.value
     })
   }
-
-
-
-  const handlePlaceChanged = () => {
-    if (autocomplete !== null) {
-      const place = autocomplete.getPlace();
-      const formattedAddress = place?.formatted_address;
-      if (formattedAddress) {
-        setSelectedAddress(formattedAddress);
-      }
-    } else {
-      console.log('Autocomplete is not loaded yet!');
-    }
-  };
-
-
-  const handleAutocompleteLoad = (autocomplete: any) => {
-    setAutocomplete(autocomplete);
-  };
-
-
   return (
     <PageLayout>
       <div className="flex flex-col flex-wrap justify-around bg-[white] text-[black] min-h-[60vh] md:mx-[30px] gap-[20px]">
@@ -112,7 +91,12 @@ export default function Checkout() {
               </div>
             </div>
             <div className="w-full min-w-300px mt-[30px]">
-              <LoadScript
+              <div>
+              <p>Adress<span className="text-[red]">*</span></p>
+                <GoogleAutocomplete onAddressSelected={handleAddressSelected} />
+              </div>
+              {/* <AddressFinder /> */}
+              {/* <LoadScript
                 googleMapsApiKey="AIzaSyAqLiHZtGTzYAmJkhBmZnGfOTrB5fBRSvw"
                 libraries={["places"]}
               >
@@ -131,7 +115,7 @@ export default function Checkout() {
                     />
                   </div>
                 </Autocomplete>
-              </LoadScript>
+              </LoadScript> */}
             </div>
             <div className="flex flex-wrap justify-between  sm:mt-[30px] mt-3">
               <div className="flex flex-col w-full md:w-[45%] min-w-[300px] ">
@@ -169,7 +153,7 @@ export default function Checkout() {
                   cartContainerProductDetailOption_classname="text-xs"
                   removeBtn_classname="hidden"
                 />
-                <p className="absolute right-[40px] md:right-[95px]   mt-[-50px] text-sm font-bold">
+                <p className="absolute right-[40px] md:right-[145px]   mt-[-50px] text-sm font-bold">
                   $ {meal.options.reduce((acc: any, item: any) => {
                     const price = parseFloat(item.price);
                     const count = parseInt(item.count);

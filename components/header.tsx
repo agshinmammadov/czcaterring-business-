@@ -10,6 +10,7 @@ import CartProductInfo from "./cartproductinfo";
 import Link from "next/link";
 import { menuCategories } from "../redux/actions/action";
 import SubTotalAmount from "./subtotal";
+import ScrollToTop from "react-scroll-to-top";
 
 const Header = () => {
 
@@ -38,13 +39,13 @@ const Header = () => {
     <header className={styles.header}>
       <nav className="flex fixed md:relative w-full top-0 p-3 justify-between md:justify-center items-center bg-[#C00A27] z-10 md:z-0 md:bg-transparent">
         <div className="w-[100px] md:hidden">
-          <Link href="/">         
+          <Link href="/">
             <Image src={Logo} alt="Logo" />
-          </Link>           
+          </Link>
         </div>
         <div className="mt-5 hidden md:block">
-          <Link href="/">         
-            <Image className="w-44" src={Logo} alt="Logo" />          
+          <Link href="/">
+            <Image className="w-44" src={Logo} alt="Logo" />
           </Link>
         </div>
         <div className="gap-3 flex items-center md:hidden">
@@ -68,7 +69,7 @@ const Header = () => {
           {cartMeals !== null && cartMeals.length !== 0 ?
             <>
               {cartMeals.map((meal: any) =>
-                <div className="max-h-[500px] ">
+                <div className="max-h-[500px]">
                   <CartProductInfo
                     key={meal.selectedMeal.id}
                     ProductID={meal.selectedMeal.id}
@@ -101,20 +102,26 @@ const Header = () => {
                   </Link>
                 </div>
               </div>
-            </> : <div className="flex flex-col justify-center items-center">
+            </> : <div className="flex flex-col justify-center items-center max-h-[500px]">
               <p>Your cart is empty.</p>
               <div className="w-[80%] mt-5">
-                  <ButtonCard
-                    button_text="Back to menu"
-                    onClick={hideModalCart}
-                    button_Classname="px-3 py-2 w-full rounded-lg bg-gray-300 md:hidden"
-                  />
+                <ButtonCard
+                  button_text="Back to menu"
+                  onClick={hideModalCart}
+                  button_Classname="px-3 py-2 w-full rounded-lg bg-gray-300 md:hidden"
+                />
               </div>
             </div>
           }
         </div>
       }
-      
+
+      <ScrollToTop
+        smooth
+        width="28px"
+        color="white"
+        style={{ backgroundColor: "#C00A27", display: "flex", justifyContent: "center", alignItems: "center" }}
+        height="20px" />
     </header>
   );
 };

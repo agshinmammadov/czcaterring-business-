@@ -112,7 +112,7 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
 
     return (<>
       <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
-      <div className="fixed flex justify-center items-center w-full h-full left-0 top-0 z-50 outline-0 overflow-y-auto">
+      <div className="fixed flex justify-center items-center w-full h-full left-0 top-0 z-50 outline-0">
         <div className="z-50 bg-white text-black sm:w-[80%] w-[90%] sm:w-[70%] xl:min-[700px] lg:mt-[150px] xl:mt-[50px] h-auto mt-[350px] lg:mt-0 box-border rounded" >
           <button className="float-right m-5 bg-gray-600 text-white w-6 h-8 rounded-md" onClick={closeProductDetailOverlay}>X</button>
           <div className="flex flex-wrap p-5 gap-5">

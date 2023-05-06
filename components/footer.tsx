@@ -4,6 +4,7 @@ import Facebookicon from '../public/media/facebookicon.png'
 import Twittericon from '../public/media/twittericon.png'
 import Instagramicon from '../public/media/instagramicon.png'
 import Link from "next/link";
+import ScrollToTop from "./scrollTop";
 
 export default function Footer() {
     return (
