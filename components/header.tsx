@@ -4,22 +4,32 @@ import Logo from "../public/media/logo.png";
 import Carticon from "../public/media/cart-icon.png";
 import styles from '../styles/header.module.css'
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonCard from "./button";
 import CartProductInfo from "./cartproductinfo";
 import Link from "next/link";
 import { menuCategories } from "../redux/actions/action";
 import SubTotalAmount from "./subtotal";
 import ScrollToTop from "react-scroll-to-top";
+import Sidebar from "./sidebar";
 
 const Header = () => {
-
+  const [products, setProducts] = useState<[]>([])
   const [showCartModal, setShowCartmodal] = useState(false)
+  const [mealCategoryOnOff, setMealCategoryOnOff] = useState(false);
 
   const cartMeals = useSelector((state: any) => state.cartReducer);
-  const mealCategoryOnOff = useSelector((state: any) => state.categoriesReducer)
 
-  const dispatch = useDispatch()
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const res = await fetch(
+        "https://gist.githubusercontent.com/turalus/8890c7e87f8274d7df062b16d4818dfd/raw/90ddd447d92f37f6768a0a3569afd7093c98cbcd/er_api_response.json"
+      );
+      const data = await res.json();
+      setProducts(data.data.categories)
+    };
+    fetchProducts();
+  }, []);  
 
   const showModalCart = () => {
     setShowCartmodal(true)
@@ -32,7 +42,7 @@ const Header = () => {
   }
 
   const showHideMenuCategories = () => {
-    dispatch(menuCategories(!mealCategoryOnOff))
+    (setMealCategoryOnOff(!mealCategoryOnOff))
   }
 
   return (
@@ -55,6 +65,21 @@ const Header = () => {
         </div>
       </nav>
 
+      {/* Mobile menu categories */}
+      {mealCategoryOnOff &&
+            <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4 z-10 text-left">
+              {products.map((cat: any) =>
+                <a href={`#${cat.title}`} key={cat.id}>
+                  <Sidebar
+                    sidebartitle={cat.title}
+                    sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27] w-full"
+                    onClick_activity={showHideMenuCategories}
+                  />
+                </a>
+              )}
+            </ul>
+          }
+
       <div className="hidden md:block md:fixed right-3.5 top-10 w-14 h-12 bg-[rgba(0,0,0,.4)] rounded-lg" onMouseOver={showModalCart} onMouseOut={hideModalCart}>
         <Image className="w-7 m-auto mt-2" src={Carticon} alt="Cart Busket" />
         <p className="absolute top-0 right-2 text-center font-bold text-[10px] text-white bg-red-700 w-[18px] h-[18px] leading-[18px] rounded-2xl">{cartMeals !== null ? cartMeals.length : 0}</p>
@@ -76,9 +101,9 @@ const Header = () => {
                     CartProductImg={meal.selectedMeal.img_url.small}
                     CartproductTitle={meal.selectedMeal.title}
                     CartProductOption={meal.options}
-                    cartContainerWrapper_classname="flex justify-between "
+                    cartContainerWrapper_classname="flex justify-between p-3"                    
                     cartContainer_classname="flex"
-                    cartContainerProductDetail_classname="flex flex-col items-start"
+                    cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-[14px]"
                     cartContainerProductDetailOption_classname="text-xs"
                   />
                 </div>
@@ -95,7 +120,7 @@ const Header = () => {
                 <div className="w-[80%]">
                   <Link href="/checkout">
                     <ButtonCard
-                      // subtotalamount={SubTotalAmount}
+                      subtotalamount={SubTotalAmount}
                       button_text="Checkout"
                       button_Classname="px-3 w-full py-2 bg-[#C00A27] text-white c mt-5 rounded-lg"
                     />
