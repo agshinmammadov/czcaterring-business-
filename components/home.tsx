@@ -20,7 +20,6 @@ const Home = () => {
   const [showProdDetailOverlay, setShowProdDetailOverlay] = useState(false);
   const [clickedMeal, setClickedMeal] = useState('');
 
-  const showMenuCategories = useSelector((state: any) => state.categoriesReducer);
 
   const cartMeals = useSelector((state: any) => state.cartReducer);
   const dispatch = useDispatch();
@@ -86,20 +85,7 @@ const Home = () => {
               )}
             </ul>
           </div>
-          {/* For mobile devices */}
-          {showMenuCategories &&
-            <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4">
-              {products.map((cat: any) =>
-                <a href={`#${cat.title}`} key={cat.id}>
-                  <Sidebar
-                    sidebartitle={cat.title}
-                    sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27]"
-                    onClick_activity={() => dispatch(menuCategories(!showMenuCategories))}
-                  />
-                </a>
-              )}
-            </ul>
-          }
+        
           <div className="w-[90%] md:w-[50%] min-h-50vh mt-5 min-w-[250px]">
             {filteredData.map((item: any) =>
               <div className="mt-10" key={item.id}>

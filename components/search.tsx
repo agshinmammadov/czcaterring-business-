@@ -13,7 +13,7 @@ const  Search: React.FC<Searchprops> = ({search_div_classname, search_input_clas
             <input 
                 className={search_input_classname} 
                 onChange={onChange} type="search" placeholder="Search"/>
-                <Image src={Searchicon} alt="Search icon" className="right-[60px] mt-[-30px] absolute w-[20px] md:top-[55px] md:right-[30px]"/>
+                <Image src={Searchicon} alt="Search icon" className="right-[60px] mt-[-30px] absolute w-[20px] md:top-[55px] md:right-[30px] bg-[white] z-5"/>
         </div>
     )
 };

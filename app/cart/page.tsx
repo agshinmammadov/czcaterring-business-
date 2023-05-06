@@ -30,7 +30,7 @@ export default function Cart() {
                 cartContainerProductDetailOption_classname="text-base"
               />
 
-              <p className="absolute right-[250px] mt-[-150px] text-base font-bold">
+              <p className="absolute right-[40px] md:right-[250px] mt-[-150px] text-base font-bold">
                 $ {meal.options.reduce((acc: any, item: any) => {
                   const price = parseFloat(item.price);
                   const count = parseInt(item.count);
@@ -39,9 +39,9 @@ export default function Cart() {
               </p>
             </>
           )}
-          <div className="flex justify-around border-t-2 border-slate-200">
-            <h1 className="font-bold text-xl">Subtotal:</h1>
-            <p className="font-bold text-xl w-[20px] h-[20px]">
+          <div className="flex justify-between md:justify-around  p-14 md:px-20 border-t-2 border-slate-200">
+            <h1 className="font-bold text-base">Subtotal:</h1>
+            <p className="font-bold text-base w-[20px] h-[20px]">
               ${cartMeals.reduce((acc: any, obj: any) => {
                 const options = obj.options;
                 options.forEach((option: any) => {
@@ -53,35 +53,39 @@ export default function Cart() {
               }, 0).toFixed(2)}
             </p>
           </div>
-          <div className="flex flex-wrap mt-[50px] justify-around">
-            <div className="mt-5 mb-[30px]">
+          <div className="flex flex-wrap mt-[50px] justify-around gap-3">
+            <div className=" mb-[10px]">
+              <Link href="/">
                 <ButtonCard
                   button_text="Back to menu"
-                  button_Classname="rounded-full w-[50%] p-[20px] bg-gray-300 min-w-[300px]"
-                />              
+                  button_Classname="rounded-full w-[50%] p-[10px] bg-gray-300 min-w-[300px]"
+                />
+              </Link>
             </div>
-            <div className=" mt-5 mb-[30px]">
+            <div className="  mb-[10px]">
               <Link href="/checkout">
                 <ButtonCard
                   button_text="Checkout"
-                  button_Classname="rounded-full text-[white] w-[50%] p-[20px] bg-[#C00A27] min-w-[300px]"
+                  button_Classname="rounded-full text-[white] w-[50%] p-[10px] bg-[#C00A27] min-w-[300px]"
                 />
               </Link>
             </div>
           </div>
         </div> :
-          <div className="flex flex-col justify-center items-center min-h-[30vh] bg-[white] text-[black] mt-[40px]">
-            <p className="font-bold text-xl">Your cart is empty.</p>
-            <div>
-              <Image className="w-[100px]" src={ShoppingcartImage} alt="Shopping cart empty" />
-            </div>
-            <div className="mt-5 mb-[30px]">             
-                <ButtonCard
-                  button_text="Back to menu"
-                  button_Classname="rounded-full w-[50%] p-[20px] bg-gray-300 min-w-[300px]"
-                />              
-            </div>
-          </div>}
+        <div className="flex flex-col justify-center items-center min-h-[30vh] bg-[white] text-[black] mt-[40px]">
+          <p className="font-bold text-xl">Your cart is empty.</p>
+          <div>
+            <Image className="w-[100px]" src={ShoppingcartImage} alt="Shopping cart empty" />
+          </div>
+          <div className="mt-5 mb-[30px]">
+            <Link href="/">
+              <ButtonCard
+                button_text="Back to menu"
+                button_Classname="rounded-full w-[50%] p-[10px] bg-gray-300 min-w-[300px]"
+              />
+            </Link>
+          </div>
+        </div>}
     </PageLayout>
   )
 }

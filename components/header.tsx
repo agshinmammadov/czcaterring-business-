@@ -36,12 +36,16 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <nav className="flex fixed md:relative w-full top-0 p-3 justify-between md:justify-center items-center bg-[#C00A27] md:bg-transparent">
-        <div className="w-[100px] md:hidden">          
-            <Image src={Logo} alt="Logo" />          
+      <nav className="flex fixed md:relative w-full top-0 p-3 justify-between md:justify-center items-center bg-[#C00A27] z-10 md:z-0 md:bg-transparent">
+        <div className="w-[100px] md:hidden">
+          <Link href="/">         
+            <Image src={Logo} alt="Logo" />
+          </Link>           
         </div>
-        <div className="mt-5 hidden md:block">         
+        <div className="mt-5 hidden md:block">
+          <Link href="/">         
             <Image className="w-44" src={Logo} alt="Logo" />          
+          </Link>
         </div>
         <div className="gap-3 flex items-center md:hidden">
           <button onClick={showhideModalCart}><Image className="w-6" src={Carticon} alt="Shopping cart icon" /></button>
@@ -51,7 +55,7 @@ const Header = () => {
       </nav>
 
       <div className="hidden md:block md:fixed right-3.5 top-10 w-14 h-12 bg-[rgba(0,0,0,.4)] rounded-lg" onMouseOver={showModalCart} onMouseOut={hideModalCart}>
-        <Image className="w-7 m-auto mt-2" src={Carticon} alt="Card Busket" />
+        <Image className="w-7 m-auto mt-2" src={Carticon} alt="Cart Busket" />
         <p className="absolute top-0 right-2 text-center font-bold text-[10px] text-white bg-red-700 w-[18px] h-[18px] leading-[18px] rounded-2xl">{cartMeals !== null ? cartMeals.length : 0}</p>
       </div>
 
@@ -110,6 +114,7 @@ const Header = () => {
           }
         </div>
       }
+      
     </header>
   );
 };
