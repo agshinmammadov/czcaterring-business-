@@ -18,4 +18,3 @@ const SubTotalAmount = ()=> {
     console.log(Amount);
 }
 export default SubTotalAmount;
-console.log(SubTotalAmount)

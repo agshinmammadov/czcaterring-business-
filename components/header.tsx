@@ -3,12 +3,11 @@ import Image from "next/image";
 import Logo from "../public/media/logo.png";
 import Carticon from "../public/media/cart-icon.png";
 import styles from '../styles/header.module.css'
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import ButtonCard from "./button";
 import CartProductInfo from "./cartproductinfo";
 import Link from "next/link";
-import { menuCategories } from "../redux/actions/action";
 import SubTotalAmount from "./subtotal";
 import ScrollToTop from "react-scroll-to-top";
 import Sidebar from "./sidebar";
@@ -67,7 +66,7 @@ const Header = () => {
 
       {/* Mobile menu categories */}
       {mealCategoryOnOff &&
-            <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4 z-10 text-left">
+            <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4 z-10 text-left text-black">
               {products.map((cat: any) =>
                 <a href={`#${cat.title}`} key={cat.id}>
                   <Sidebar
@@ -122,7 +121,7 @@ const Header = () => {
                     <ButtonCard
                       subtotalamount={SubTotalAmount}
                       button_text="Checkout"
-                      button_Classname="px-3 w-full py-2 bg-[#C00A27] text-white c mt-5 rounded-lg"
+                      button_Classname="px-3 w-full py-2 bg-[#C00A27] text-white mt-5 rounded-lg"
                     />
                   </Link>
                 </div>

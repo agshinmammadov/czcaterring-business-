@@ -11,7 +11,6 @@ import ButtonCard from "./button";
 import Image from "next/image";
 import Loader from "../public/media/foodloader.gif";
 import Shoppingcart from "../public/media/shopping-cart.png";
-import { menuCategories } from "../redux/actions/action";
 import bookmark from "../public/media/bookmarkicon.png"
 
 const Home = () => {
@@ -89,7 +88,7 @@ const Home = () => {
           <div className="w-[90%]  md:w-[50%] min-h-50vh mt-5 min-w-[250px]">
             {filteredData.map((item: any) =>
               <div className="mt-10" key={item.id}>
-                <h1 className="text-2xl font-bold md:text-3xl pt-[80px] md:pt-0" id={item.title}>{item.title}</h1>
+                <h1 className="text-2xl font-bold md:text-3xl" id={item.title}>{item.title}</h1>
                 <div className="flex flex-wrap mt-2">
                   {item.items.filter((item: any) =>
                     item.title.toLowerCase().includes(searchValue.toLowerCase())).map((el: any) =>

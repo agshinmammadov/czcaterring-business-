@@ -61,22 +61,30 @@ const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({ onAddressSelect
         }
 
         let unknownComponents = [];
+        const addressElement = document.getElementById('address');
 
         if (!street) unknownComponents.push('street');
         if (!city) unknownComponents.push('city');
         if (!state) unknownComponents.push('state');
         if (!zip) unknownComponents.push('zip');
 
-        if (unknownComponents.length > 0) {
+       
+        if (addressElement && unknownComponents.length > 0) {
+          addressElement.style.borderColor = "red";
           alert(`Unknown ${unknownComponents.join(', ')} address. Please type full address.`);
           return;
+        }else if(addressElement){
+          addressElement.style.borderColor = "#E5E7EB"
         }
 
         const acceptedZips = [10001, 10012, 10014, 10010, 10011, 10018, 10003, 10016, 10009];
 
-        if (!acceptedZips.includes(Number(zip))) {
+        if (!acceptedZips.includes(Number(zip)) && addressElement) {
+          addressElement.style.borderColor = "red";
           alert("Sorry, but currently we don't cover your area.");
           return;
+        }else if(addressElement){
+          addressElement.style.borderColor = "#E5E7EB";
         }
 
         onAddressSelected && onAddressSelected({ street, city, state, zip });
@@ -93,7 +101,7 @@ const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({ onAddressSelect
     };
   }, []);
 
-  return <input ref={inputRef} type="text" placeholder="Enter your address" className='border-2 w-full rounded-full p-2'/>;
+  return <input ref={inputRef} type="text" id='address' placeholder="Enter your address" className='border-2 w-full rounded-full p-2' />;
 };
 
 export default GoogleAutocomplete;

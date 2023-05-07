@@ -15,7 +15,7 @@ const configureStore = (): Store<RootState> => {
       initialState = JSON.parse(persistedState);
     }
   } catch (error) {
-    // Handle the error here
+    console.log(`"There problem in redux store. Error name:" ${error}`)
   }
 
   const store = createStore(rootReducer, initialState);
@@ -27,7 +27,7 @@ const configureStore = (): Store<RootState> => {
         try {
           localStorage.setItem('reduxState', JSON.stringify(state));
         } catch (error) {
-          // Handle the error here
+          console.log(`"There is problem with sending data to localstorage. Error name:" ${error}`)
         }
       });
     }

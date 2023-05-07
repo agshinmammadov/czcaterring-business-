@@ -20,10 +20,3 @@ export const costumerDetails = (details:any) => {
         payload:details
     }
 }
-
-export const menuCategories = (category:any) => {
-    return {
-        type:actionTypes.MEAL_CATEGORIES,
-        payload:category
-    }
-}

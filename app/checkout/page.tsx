@@ -5,9 +5,7 @@ import { useSelector } from "react-redux";
 import Leftarrowicon from "../../public/media/left-arrow.png"
 import Image from "next/image";
 import CartProductInfo from "../../components/cartproductinfo";
-import { LoadScript, Autocomplete } from '@react-google-maps/api';
 import Link from "next/link";
-import AddressFinder from "../../components/GoogleAutocomplete.tsx";
 import GoogleAutocomplete from "../../components/GoogleAutocomplete.tsx";
 
 
@@ -95,27 +93,6 @@ export default function Checkout() {
               <p>Adress<span className="text-[red]">*</span></p>
                 <GoogleAutocomplete onAddressSelected={handleAddressSelected} />
               </div>
-              {/* <AddressFinder /> */}
-              {/* <LoadScript
-                googleMapsApiKey="AIzaSyAqLiHZtGTzYAmJkhBmZnGfOTrB5fBRSvw"
-                libraries={["places"]}
-              >
-                <Autocomplete
-                  onLoad={handleAutocompleteLoad}
-                  onPlaceChanged={handlePlaceChanged}
-                  fields={['formatted_address']}
-                >
-                  <div >
-                    <label htmlFor="adress">Adress<span className="text-[red]">*</span></label>
-                    <input
-                      id="adress"
-                      type="text"
-                      placeholder="Enter address"
-                      className="border-2 rounded-full p-2 w-full"
-                    />
-                  </div>
-                </Autocomplete>
-              </LoadScript> */}
             </div>
             <div className="flex flex-wrap justify-between  sm:mt-[30px] mt-3">
               <div className="flex flex-col w-full md:w-[45%] min-w-[300px] ">
