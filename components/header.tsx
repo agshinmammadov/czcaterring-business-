@@ -60,15 +60,15 @@ const Header = () => {
         <div className="gap-3 flex items-center md:hidden">
           <button onClick={showhideModalCart}><Image className="w-6" src={Carticon} alt="Shopping cart icon" /></button>
           <p className="absolute top-0 mt-3 ml-3 text-center font-bold text-[10px] text-[white] bg-[black] w-[15px] h-[15px]  rounded-full">{cartMeals !== null ? cartMeals.length : 0}</p>
-          <Link href='/'><button onClick={showHideMenuCategories} className="font-bold text-white">MENU</button></Link>
+          <button onClick={showHideMenuCategories} className="font-bold text-white">MENU</button>
         </div>
       </nav>
 
       {/* Mobile menu categories */}
       {mealCategoryOnOff &&
             <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4 z-10 text-left text-black">
-              {products.map((cat: any) =>
-                <a href={`#${cat.title}`} key={cat.id}>
+              {products.map((cat: any) =>              
+                <a href={`/#${cat.title}`} key={cat.id}>
                   <Sidebar
                     sidebartitle={cat.title}
                     sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27] w-full"
