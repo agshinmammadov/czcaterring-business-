@@ -131,6 +131,7 @@ const Home = () => {
                       cartContainer_classname="flex"
                       cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-[14px]"
                       cartContainerProductDetailOption_classname="text-xs"
+                      removeBtn_classname="bg-white w-[25px] h-[25px] rounded text-[red]"
                     />
                   </>
                 )}

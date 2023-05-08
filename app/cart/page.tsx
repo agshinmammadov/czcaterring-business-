@@ -28,7 +28,7 @@ export default function Cart() {
                 cartProductTitle_classname="text-xl"
                 cartContainerProductDetail_classname="flex flex-col justify-center m-[20px]"
                 cartContainerProductDetailOption_classname="text-base"
-                removeBtn_classname="absolute right-8 bg-white w-10 h-10 rounded-lg"
+                removeBtn_classname="absolute right-8 bg-white w-10 h-10 rounded-lg text-[red]"
               />
 
               <p className="absolute right-[40px] md:right-[250px] mt-[-150px] text-base font-bold">

@@ -104,6 +104,7 @@ const Header = () => {
                     cartContainer_classname="flex"
                     cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-[14px]"
                     cartContainerProductDetailOption_classname="text-xs"
+                    removeBtn_classname="w-[25px] h-[25px] text-[red] rounded bg-gray-200"
                   />
                 </div>
               )}
