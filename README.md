@@ -23,13 +23,23 @@ The main purpose of this project is to create an online meal ordering platform f
   <li>Redux</li>  
 </ul>
 <h3>Gettin started</h3>
-<p>Clone the repository:</p>
-<p>git clone https://github.com/agshinmammadov/czcaterring-business-.git</p>
-<p>Install dependencies:</p>
-<p>npm install</p>
-<p>Start the development server:</p>
-<p>npm run dev</p>
-<p>Open your browser and navigate to http://localhost:3000.</p>
+<ol>
+  <li><p>Clone the repository:</p>
+      <p>git clone https://github.com/agshinmammadov/czcaterring-business-.git</p>
+  </li>
+  <li>
+    <p>Install dependencies:</p>
+    <p>npm install</p>
+  </li>
+  <li>
+    <p>Start the development server:</p>
+    <p>npm run dev</p>
+  </li>
+  <li>
+    <p>Open your browser and navigate to http://localhost:3000.</p>
+  </li>  
+</ol>
+
 <h3>Contributing</h3>
 <p>Since the GitHub repository is private, only approved team members can contribute to this project. If you are a part of the tech team and would like to make a contribution, please follow the standard GitHub workflow:</p>
 <ol>
