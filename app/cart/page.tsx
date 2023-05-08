@@ -13,7 +13,7 @@ export default function Cart() {
   return (
     <PageLayout>
       {cartMeals !== null && cartMeals.length !== 0 ?
-        <div className="bg-[white] text-black mb-[50px]">
+        <div className="bg-[white] text-black mb-[50px] mx-5">
           {cartMeals.map((meal: any) =>
             <>
               <CartProductInfo
@@ -22,12 +22,13 @@ export default function Cart() {
                 CartProductImg={meal.selectedMeal.img_url.large}
                 CartproductTitle={meal.selectedMeal.title}
                 CartProductOption={meal.options}
-                cartContainerWrapper_classname="flex justify-between px-[50px] py-[20px]"
+                cartContainerWrapper_classname="flex justify-between px-[50px] py-[20px] bg-gray-200 rounded-lg mt-5"
                 cartContainer_classname="flex"
                 cartProductImage_classname="w-[200px]"
                 cartProductTitle_classname="text-xl"
                 cartContainerProductDetail_classname="flex flex-col justify-center m-[20px]"
                 cartContainerProductDetailOption_classname="text-base"
+                removeBtn_classname="absolute right-8 bg-white w-10 h-10 rounded-lg"
               />
 
               <p className="absolute right-[40px] md:right-[250px] mt-[-150px] text-base font-bold">
@@ -39,7 +40,7 @@ export default function Cart() {
               </p>
             </>
           )}
-          <div className="flex justify-between md:justify-around  p-14 md:px-20 border-t-2 border-slate-200">
+          <div className="flex justify-between md:justify-around  p-14 md:px-20">
             <h1 className="font-bold text-base">Subtotal:</h1>
             <p className="font-bold text-base w-[20px] h-[20px]">
               ${cartMeals.reduce((acc: any, obj: any) => {

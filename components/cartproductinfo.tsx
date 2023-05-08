@@ -54,7 +54,7 @@ const CartProductInfo: React.FC<CartProductProps> = ({
             <ButtonCard
                 key={ProductID}
                 button_Classname={removeBtn_classname}
-                button_text="X"
+                button_text="x"
                 onClick={removeFromCartHandler}
                 name={ProductID}
             />
