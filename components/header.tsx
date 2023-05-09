@@ -67,8 +67,8 @@ const Header = () => {
       {/* Mobile menu categories */}
       {mealCategoryOnOff &&
             <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4 z-10 text-left text-black">
-              {products.map((cat: any) =>
-                <a href={`#${cat.title}`} key={cat.id}>
+              {products.map((cat: any) =>              
+                <a href={`/#${cat.title}`} key={cat.id}>
                   <Sidebar
                     sidebartitle={cat.title}
                     sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27] w-full"

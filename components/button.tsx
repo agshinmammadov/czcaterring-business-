@@ -17,7 +17,7 @@ subtotalamount
 }) => {
     return (
         <button name={name} className={button_Classname} onClick={onClick}>
-            {button_text} {subtotalamount}
+            {button_text}  {subtotalamount}
         </button>
     )
 }

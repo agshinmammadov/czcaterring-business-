@@ -10,10 +10,21 @@ import ShoppingcartImage from "../../public/media/shopping-cart.png";
 
 export default function Cart() {
   const cartMeals = useSelector((state: any) => state.cartReducer);
+
+  const subTotal = cartMeals.reduce((acc: any, obj: any) => {
+    const options = obj.options;
+    options.forEach((option: any) => {
+      const price = Number(option.price);
+      const count = Number(option.count);
+      acc += price * count;
+    });
+    return acc;
+  }, 0).toFixed(2)
+
   return (
     <PageLayout>
       {cartMeals !== null && cartMeals.length !== 0 ?
-        <div className="bg-[white] text-black mb-[50px] mx-5">
+        <div className="text-black px-[5px] md:px-[20px]">
           {cartMeals.map((meal: any) =>
             <>
               <CartProductInfo
@@ -22,16 +33,16 @@ export default function Cart() {
                 CartProductImg={meal.selectedMeal.img_url.large}
                 CartproductTitle={meal.selectedMeal.title}
                 CartProductOption={meal.options}
-                cartContainerWrapper_classname="flex justify-between px-[50px] py-[20px] bg-gray-200 rounded-lg mt-5"
-                cartContainer_classname="flex"
+                cartContainerWrapper_classname="flex flex-wrap justify-between px-[10px] md:px-[50px] py-[5px] md:py-[20px] border-2 rounded-lg mt-5"
+                cartContainer_classname="flex flex-wrap"
                 cartProductImage_classname="w-[200px]"
-                cartProductTitle_classname="text-xl"
-                cartContainerProductDetail_classname="flex flex-col justify-center m-[20px]"
-                cartContainerProductDetailOption_classname="text-base"
-                removeBtn_classname="absolute right-8 bg-white w-10 h-10 rounded-lg text-[red]"
+                cartProductTitle_classname="text-xl font-bold"
+                cartContainerProductDetail_classname="flex flex-col justify-center m-[5px] md:m-[20px]"
+                cartContainerProductDetailOption_classname="text-xs md:text-base"
+                removeBtn_classname="absolute right-6 md:right-10 mt-1 w-6 h-6 rounded text-black bg-gray-300"
               />
 
-              <p className="absolute right-[40px] md:right-[250px] mt-[-150px] text-base font-bold">
+              <p className="absolute right-[25px] md:right-12 md:right-[250px] mt-[-150px] text-base font-bold">
                 $ {meal.options.reduce((acc: any, item: any) => {
                   const price = parseFloat(item.price);
                   const count = parseInt(item.count);
@@ -40,20 +51,7 @@ export default function Cart() {
               </p>
             </>
           )}
-          <div className="flex justify-between md:justify-around  p-14 md:px-20">
-            <h1 className="font-bold text-base">Subtotal:</h1>
-            <p className="font-bold text-base w-[20px] h-[20px]">
-              ${cartMeals.reduce((acc: any, obj: any) => {
-                const options = obj.options;
-                options.forEach((option: any) => {
-                  const price = Number(option.price);
-                  const count = Number(option.count);
-                  acc += price * count;
-                });
-                return acc;
-              }, 0).toFixed(2)}
-            </p>
-          </div>
+          
           <div className="flex flex-wrap mt-[50px] justify-around gap-3">
             <div className=" mb-[10px]">
               <Link href="/">
@@ -63,10 +61,11 @@ export default function Cart() {
                 />
               </Link>
             </div>
-            <div className="  mb-[10px]">
+            <div className="mb-[10px]">
               <Link href="/checkout">
                 <ButtonCard
                   button_text="Checkout"
+                  subtotalamount={`$${subTotal}`}
                   button_Classname="rounded-full text-[white] w-[50%] p-[10px] bg-[#C00A27] min-w-[300px]"
                 />
               </Link>
