@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { FC } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/actions/action";
@@ -112,14 +111,14 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
 
     return (<>
       <div className="fixed inset-0 bg-black opacity-50 z-40"></div>
-      <div className="fixed flex pb-20 pt-28 justify-center items-center w-full h-full left-0 top-0 z-50 outline-0 overflow-y-auto">
-        <div className="z-50 bg-white text-black pb-10 sm:w-[80%] w-[90%] sm:w-[70%] xl:min-[700px] lg:mt-[150px] xl:mt-[50px] h-auto mt-[350px] lg:mt-0 box-border rounded" >
-          <button className="float-right m-5 bg-gray-600 text-white w-6 h-8 rounded-md" onClick={closeProductDetailOverlay}>X</button>
-          <div className="flex flex-wrap p-5 gap-5">
-            <div className="min-w-[200px]">
+      <div className="fixed flex mt-[30px] justify-center items-start w-full h-full left-0 top-0 z-50 outline-0 overflow-y-auto">
+        <div className=" z-50 bg-[white] text-black pb-10 sm:w-[80%] w-[90%] sm:w-[70%] max-w-[900px]  h-auto lg:mt-0 box-border rounded" >
+          <button className="float-right m-5 text-[white] rounded bg-black w-6 h-6 rounded" onClick={closeProductDetailOverlay}>x</button>
+          <div className="flex flex-wrap p-2 gap-5">
+            <div className="min-w-[200px] max-w-[400px]">
               <img src={mealData.selectedMeal.img_url.large} alt={mealData.selectedMeal.title} className="w-full" />
             </div>
-            <div className="min-w-[200px]">
+            <div className="min-w-[200px] max-w-[400px]">
               <div>
                 <h1 className="text-black font-bold text-4xl">{mealData.selectedMeal.title}</h1>
                 <p>{mealData.selectedMeal.description}</p>
@@ -178,7 +177,7 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
                         {/* <input className="border-2 w-[70px] h-[60px] border" defaultValue="1" type='number' step="1" min="1" onChange={handleSingleOptionCountChange} /> */}
                       </div>
                     </div>
-                    <button className="flex rounded-3xl mt-5 px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right" onClick={handleAddtoCart}>
+                    <button className="flex rounded-3xl mt-5 px-5 md:px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right" onClick={handleAddtoCart}>
                       <Image src={carticon} className="w-[20px]" alt="Cart icon" />
                       Add to cart
                     </button>
@@ -186,14 +185,14 @@ const ProductDetailsOverlay: React.FC<Productdetailprops> = ({
                 }
 
                 {clickingRequiredOption &&
-                  <button className="flex rounded-3xl mt-5 px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right" onClick={handleAddtoCart}>
+                  <button className="flex rounded-3xl mt-5 px-5 md:px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right" onClick={handleAddtoCart}>
                     <Image src={carticon} className="w-[20px]" alt="Cart icon" />
                     Add to cart
                   </button>
                 }
 
                 {mealData.selectedMeal.opt_groups.length !== 0 && requiredOptions.length === 0 &&
-                  <button className="flex rounded-3xl px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right m-5" onClick={handleAddtoCart}>
+                  <button className="flex rounded-3xl px-5 md:px-10 py-3 font-bold text-base bg-[#C00A27] text-white float-right m-5" onClick={handleAddtoCart}>
                     <Image src={carticon} className="w-[20px]" alt="Cart icon" /> Add to cart</button>
                 }
               </div>

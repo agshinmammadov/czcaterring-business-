@@ -24,7 +24,7 @@ export default function Cart() {
   return (
     <PageLayout>
       {cartMeals !== null && cartMeals.length !== 0 ?
-        <div className="text-black px-[5px] md:px-[20px] bg-white">
+        <div className="text-black px-[5px] md:px-[20px] bg-white pt-6 pb-14">
           {cartMeals.map((meal: any) =>
             <>
               <CartProductInfo
@@ -42,7 +42,7 @@ export default function Cart() {
                 removeBtn_classname="absolute right-6 md:right-10 mt-1 w-6 h-6 rounded text-[red] bg-gray-200"
               />
 
-              <p className="absolute right-[25px]  md:right-12 md:right-[50px] mt-[-50px] md:mt-[-150px] text-base font-bold">
+              <p className="absolute right-[25px]  md:right-12 md:right-[50px] mt-[-30px] md:mt-[-150px] text-base font-bold">
                 $ {meal.options.reduce((acc: any, item: any) => {
                   const price = parseFloat(item.price);
                   const count = parseInt(item.count);
@@ -57,7 +57,7 @@ export default function Cart() {
               <Link href="/">
                 <ButtonCard
                   button_text="Back to menu"
-                  button_Classname="rounded-full w-[50%] p-[10px] bg-gray-300 min-w-[300px]"
+                  button_Classname="rounded-full w-[50%] p-[10px] bg-gray-300 min-w-[200px] md:min-w-[300px]"
                 />
               </Link>
             </div>
@@ -66,7 +66,7 @@ export default function Cart() {
                 <ButtonCard
                   button_text="Checkout"
                   subtotalamount={`$${subTotal}`}
-                  button_Classname="rounded-full text-[white] w-[50%] p-[10px] bg-[#C00A27] min-w-[300px]"
+                  button_Classname="rounded-full text-[white] w-[50%] p-[10px] bg-[#C00A27] min-w-[200px] md:min-w-[300px]"
                 />
               </Link>
             </div>

@@ -148,7 +148,7 @@ const Home = () => {
                       CartProductOption={meal.options}
                       cartContainerWrapper_classname="flex justify-between p-3 bg-gray-100 border-b-2 border-gray-300"
                       cartContainer_classname="flex"
-                      cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-[14px]"
+                      cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-xs md:text-lg"
                       cartContainerProductDetailOption_classname="text-xs"
                       removeBtn_classname="bg-white w-[25px] h-[25px] rounded text-[red]"
                     />

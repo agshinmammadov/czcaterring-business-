@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import ButtonCard from "./button";
 import CartProductInfo from "./cartproductinfo";
 import Link from "next/link";
-import SubTotalAmount from "./subtotal";
 import ScrollToTop from "react-scroll-to-top";
 import Sidebar from "./sidebar";
 
@@ -28,7 +27,7 @@ const Header = () => {
       setProducts(data.data.categories)
     };
     fetchProducts();
-  }, []);  
+  }, []);
 
   const showModalCart = () => {
     setShowCartmodal(true)
@@ -44,26 +43,26 @@ const Header = () => {
     (setMealCategoryOnOff(!mealCategoryOnOff))
   }
 
-  const unHideCategoryName = (event:any, targetId:any) => {
+  const unHideCategoryName = (event: any, targetId: any) => {
     event.preventDefault();
 
     const navbarHeight = 80; // Replace with the height of your fixed navbar in pixels
     const targetElement = document.getElementById(targetId);
 
     if (targetElement) {
-        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+      const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
     }
-};
-    const modalCartTotal = cartMeals !== null && cartMeals.reduce((acc: any, obj: any) => {
-      const options = obj.options;
-      options.forEach((option: any) => {
-        const price = Number(option.price);
-        const count = Number(option.count);
-        acc += price * count;
-      });
-      return acc;
-    }, 0).toFixed(2)
+  };
+  const modalCartTotal = cartMeals !== null && cartMeals.reduce((acc: any, obj: any) => {
+    const options = obj.options;
+    options.forEach((option: any) => {
+      const price = Number(option.price);
+      const count = Number(option.count);
+      acc += price * count;
+    });
+    return acc;
+  }, 0).toFixed(2)
 
 
   return (
@@ -82,24 +81,24 @@ const Header = () => {
         <div className="gap-3 flex items-center md:hidden">
           <button onClick={showhideModalCart}><Image className="w-6" src={Carticon} alt="Shopping cart icon" /></button>
           <p className="absolute top-0 mt-3 ml-3 text-center font-bold text-[10px] text-[white] bg-[black] w-[15px] h-[15px]  rounded-full">{cartMeals !== null ? cartMeals.length : 0}</p>
-          <button onClick={showHideMenuCategories} className="font-bold text-white">MENU</button>
+          <Link href="/"><button onClick={showHideMenuCategories} className="font-bold text-white">MENU</button></Link>
         </div>
       </nav>
 
       {/* Mobile menu categories */}
       {mealCategoryOnOff &&
-            <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4 z-10 text-left text-black">
-              {products.map((cat: any) =>              
-                <a href={`/#${cat.title}`} key={cat.id} onClick={(event) => unHideCategoryName(event, cat.title)}>
-                  <Sidebar
-                    sidebartitle={cat.title}
-                    sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27] w-full"
-                    onClick_activity={showHideMenuCategories}
-                  />
-                </a>
-              )}
-            </ul>
-          } 
+        <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4 z-10 text-left text-black">
+          {products.map((cat: any) =>
+            <a href={`/#${cat.title}`} key={cat.id} onClick={(event) => unHideCategoryName(event, cat.title)}>
+              <Sidebar
+                sidebartitle={cat.title}
+                sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27] w-full"
+                onClick_activity={showHideMenuCategories}
+              />
+            </a>
+          )}
+        </ul>
+      }
 
       <div className="hidden md:block md:fixed right-3.5 top-10 w-14 h-12 bg-[rgba(0,0,0,.4)] rounded-lg" onMouseOver={showModalCart} onMouseOut={hideModalCart}>
         <Image className="w-7 m-auto mt-2" src={Carticon} alt="Cart Busket" />
@@ -110,7 +109,7 @@ const Header = () => {
         <div
           onMouseOver={showModalCart}
           onMouseOut={hideModalCart}
-          className="fixed top-[53px] md:top-[85px] md:w-[400px] md:min-h-[70px] md:right-[40px] md:rounded text-[black]  min-h-[90px] bg-[white] p-5 drop-shadow-2xl z-50 w-full"
+          className="fixed top-[53px] md:top-[85px] md:w-[400px] md:min-h-[70px] md:right-[40px] md:rounded text-[black]  min-h-[90px] bg-[white] p-[5px] md:p-5 drop-shadow-2xl z-50 w-full"
         >
           {cartMeals !== null && cartMeals.length !== 0 ?
             <>
@@ -122,11 +121,11 @@ const Header = () => {
                     CartProductImg={meal.selectedMeal.img_url.small}
                     CartproductTitle={meal.selectedMeal.title}
                     CartProductOption={meal.options}
-                    cartContainerWrapper_classname="flex justify-between p-3 border-b-2"                    
-                    cartContainer_classname="flex"
-                    cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-[14px]"
+                    cartContainerWrapper_classname="flex flex-wrap justify-between p-[2px] md:p-3 border-b-2"
+                    cartContainer_classname="flex flex-wrap"
+                    cartContainerProductDetail_classname="flex flex-col ml-[5px] md:ml-[10px] justify-center items-start text-xs md:text-lg"
                     cartContainerProductDetailOption_classname="text-xs"
-                    removeBtn_classname="w-[25px] h-[25px] text-[red] rounded bg-gray-200"
+                    removeBtn_classname=" absolute right-[20px] mt-1 w-[25px] h-[25px] text-[red] rounded bg-gray-200"
                   />
                 </div>
               )}
@@ -152,11 +151,13 @@ const Header = () => {
             </> : <div className="flex flex-col justify-center items-center max-h-[500px]">
               <p>Your cart is empty.</p>
               <div className="w-[80%] mt-5">
-                <ButtonCard
-                  button_text="Back to menu"
-                  onClick={hideModalCart}
-                  button_Classname="px-3 py-2 w-full rounded-lg bg-gray-300 md:hidden"
-                />
+                <Link href="/">
+                  <ButtonCard
+                    button_text="Back to menu"
+                    onClick={hideModalCart}
+                    button_Classname="px-3 py-2 w-full rounded-lg bg-gray-300 md:hidden"
+                  />
+                </Link>
               </div>
             </div>
           }
