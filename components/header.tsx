@@ -92,7 +92,7 @@ const Header = () => {
             <a href={`/#${cat.title}`} key={cat.id} onClick={(event) => unHideCategoryName(event, cat.title)}>
               <Sidebar
                 sidebartitle={cat.title}
-                sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27] w-full"
+                sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27] hover:text-white w-full"
                 onClick_activity={showHideMenuCategories}
               />
             </a>
