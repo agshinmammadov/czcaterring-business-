@@ -42,7 +42,7 @@ export default function Cart() {
                 removeBtn_classname="absolute right-6 md:right-10 mt-1 w-6 h-6 rounded text-black bg-gray-300"
               />
 
-              <p className="absolute right-[25px] md:right-12 md:right-[250px] mt-[-150px] text-base font-bold">
+              <p className="absolute right-[25px]  md:right-12 md:right-[50px] mt-[-50px] md:mt-[-150px] text-base font-bold">
                 $ {meal.options.reduce((acc: any, item: any) => {
                   const price = parseFloat(item.price);
                   const count = parseInt(item.count);
