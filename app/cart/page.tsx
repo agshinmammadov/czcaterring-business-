@@ -24,7 +24,7 @@ export default function Cart() {
   return (
     <PageLayout>
       {cartMeals !== null && cartMeals.length !== 0 ?
-        <div className="text-black px-[5px] md:px-[20px]">
+        <div className="text-black px-[5px] md:px-[20px] bg-white">
           {cartMeals.map((meal: any) =>
             <>
               <CartProductInfo
