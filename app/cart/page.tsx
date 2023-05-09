@@ -11,7 +11,7 @@ import ShoppingcartImage from "../../public/media/shopping-cart.png";
 export default function Cart() {
   const cartMeals = useSelector((state: any) => state.cartReducer);
 
-  const subTotal = cartMeals.reduce((acc: any, obj: any) => {
+  const subTotal = cartMeals !== null && cartMeals.reduce((acc: any, obj: any) => {
     const options = obj.options;
     options.forEach((option: any) => {
       const price = Number(option.price);
