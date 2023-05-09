@@ -6,7 +6,7 @@ import { useEffect, useState, SyntheticEvent } from "react";
 import Productcard from "./productcard";
 import ProductDetailsOverlay from "./proddetailsoverlay";
 import CartProductInfo from "./cartproductinfo";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import ButtonCard from "./button";
 import Image from "next/image";
 import Loader from "../public/media/foodloader.gif";
@@ -21,7 +21,6 @@ const Home = () => {
 
 
   const cartMeals = useSelector((state: any) => state.cartReducer);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -63,6 +62,26 @@ const Home = () => {
     setShowProdDetailOverlay(false)
   }
 
+  const SmoothScroll = (event:any, targetId:any) => {
+    event.preventDefault();
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    }
+};
+
+    const sidebarMiniCartTotal = cartMeals !== null && cartMeals.reduce((acc: any, obj: any) => {
+      const options = obj.options;
+      options.forEach((option: any) => {
+        const price = Number(option.price);
+        const count = Number(option.count);
+        acc += price * count;
+      });
+      return acc;
+    }, 0).toFixed(2)
+
 
   if (products.length != 0) {
     return (
@@ -75,7 +94,7 @@ const Home = () => {
             />
             <ul className="hidden md:block rounded-lg bg-gray-100 p-3 w-full mt-4">
               {products.map((cat: any) =>
-                <a href={`#${cat.title}`} key={cat.id}>
+                <a href={`#${cat.title}`} key={cat.id} onClick={(event) => SmoothScroll(event, cat.title)}>
                   <Sidebar
                     sidebartitle={cat.title}
                     sidebartitle_classname="p-2"
@@ -127,7 +146,7 @@ const Home = () => {
                       CartProductImg={meal.selectedMeal.img_url.small}
                       CartproductTitle={meal.selectedMeal.title}
                       CartProductOption={meal.options}
-                      cartContainerWrapper_classname="flex justify-between p-3 bg-gray-100"
+                      cartContainerWrapper_classname="flex justify-between p-3 bg-gray-100 border-b-2 border-gray-300"
                       cartContainer_classname="flex"
                       cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-[14px]"
                       cartContainerProductDetailOption_classname="text-xs"
@@ -135,10 +154,11 @@ const Home = () => {
                     />
                   </>
                 )}
-                <div className="flex flex-col items-center justify-end bg-gray-100 pb-5">
+                <div className="flex flex-col items-center justify-end bg-gray-100 pb-5 pt-3">
                   <Link href="/checkout">
                     <ButtonCard
                       button_text="Checkout"
+                      subtotalamount={`$${sidebarMiniCartTotal}`}
                       button_Classname="w-[200px] p-[10px] bg-[#C00A27] text-white rounded-full"
                     />
                   </Link>

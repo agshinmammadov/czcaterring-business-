@@ -44,6 +44,28 @@ const Header = () => {
     (setMealCategoryOnOff(!mealCategoryOnOff))
   }
 
+  const unHideCategoryName = (event:any, targetId:any) => {
+    event.preventDefault();
+
+    const navbarHeight = 80; // Replace with the height of your fixed navbar in pixels
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+    }
+};
+    const modalCartTotal = cartMeals !== null && cartMeals.reduce((acc: any, obj: any) => {
+      const options = obj.options;
+      options.forEach((option: any) => {
+        const price = Number(option.price);
+        const count = Number(option.count);
+        acc += price * count;
+      });
+      return acc;
+    }, 0).toFixed(2)
+
+
   return (
     <header className={styles.header}>
       <nav className="flex fixed md:relative w-full top-0 p-3 justify-between md:justify-center items-center bg-[#C00A27] z-10 md:z-0 md:bg-transparent">
@@ -68,7 +90,7 @@ const Header = () => {
       {mealCategoryOnOff &&
             <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4 z-10 text-left text-black">
               {products.map((cat: any) =>              
-                <a href={`/#${cat.title}`} key={cat.id}>
+                <a href={`/#${cat.title}`} key={cat.id} onClick={(event) => unHideCategoryName(event, cat.title)}>
                   <Sidebar
                     sidebartitle={cat.title}
                     sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27] w-full"
@@ -77,7 +99,7 @@ const Header = () => {
                 </a>
               )}
             </ul>
-          }
+          } 
 
       <div className="hidden md:block md:fixed right-3.5 top-10 w-14 h-12 bg-[rgba(0,0,0,.4)] rounded-lg" onMouseOver={showModalCart} onMouseOut={hideModalCart}>
         <Image className="w-7 m-auto mt-2" src={Carticon} alt="Cart Busket" />
@@ -100,7 +122,7 @@ const Header = () => {
                     CartProductImg={meal.selectedMeal.img_url.small}
                     CartproductTitle={meal.selectedMeal.title}
                     CartProductOption={meal.options}
-                    cartContainerWrapper_classname="flex justify-between p-3"                    
+                    cartContainerWrapper_classname="flex justify-between p-3 border-b-2"                    
                     cartContainer_classname="flex"
                     cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-[14px]"
                     cartContainerProductDetailOption_classname="text-xs"
@@ -120,7 +142,7 @@ const Header = () => {
                 <div className="w-[80%]">
                   <Link href="/checkout">
                     <ButtonCard
-                      subtotalamount={SubTotalAmount}
+                      subtotalamount={`$${modalCartTotal}`}
                       button_text="Checkout"
                       button_Classname="px-3 w-full py-2 bg-[#C00A27] text-white mt-5 rounded-lg"
                     />

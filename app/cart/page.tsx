@@ -11,7 +11,7 @@ import ShoppingcartImage from "../../public/media/shopping-cart.png";
 export default function Cart() {
   const cartMeals = useSelector((state: any) => state.cartReducer);
 
-  const subTotal = cartMeals.reduce((acc: any, obj: any) => {
+  const subTotal = cartMeals !== null && cartMeals.reduce((acc: any, obj: any) => {
     const options = obj.options;
     options.forEach((option: any) => {
       const price = Number(option.price);
@@ -24,7 +24,7 @@ export default function Cart() {
   return (
     <PageLayout>
       {cartMeals !== null && cartMeals.length !== 0 ?
-        <div className="text-black px-[5px] md:px-[20px]">
+        <div className="text-black px-[5px] md:px-[20px] bg-white">
           {cartMeals.map((meal: any) =>
             <>
               <CartProductInfo
@@ -39,10 +39,10 @@ export default function Cart() {
                 cartProductTitle_classname="text-xl font-bold"
                 cartContainerProductDetail_classname="flex flex-col justify-center m-[5px] md:m-[20px]"
                 cartContainerProductDetailOption_classname="text-xs md:text-base"
-                removeBtn_classname="absolute right-6 md:right-10 mt-1 w-6 h-6 rounded text-black bg-gray-300"
+                removeBtn_classname="absolute right-6 md:right-10 mt-1 w-6 h-6 rounded text-[red] bg-gray-200"
               />
 
-              <p className="absolute right-[25px] md:right-12 md:right-[250px] mt-[-150px] text-base font-bold">
+              <p className="absolute right-[25px]  md:right-12 md:right-[50px] mt-[-50px] md:mt-[-150px] text-base font-bold">
                 $ {meal.options.reduce((acc: any, item: any) => {
                   const price = parseFloat(item.price);
                   const count = parseInt(item.count);
