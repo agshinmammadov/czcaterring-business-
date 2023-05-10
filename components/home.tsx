@@ -62,25 +62,25 @@ const Home = () => {
     setShowProdDetailOverlay(false)
   }
 
-  const SmoothScroll = (event:any, targetId:any) => {
+  const SmoothScroll = (event: any, targetId: any) => {
     event.preventDefault();
     const targetElement = document.getElementById(targetId);
 
     if (targetElement) {
-        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+      const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
     }
-};
+  };
 
-    const sidebarMiniCartTotal = cartMeals !== null && cartMeals.reduce((acc: any, obj: any) => {
-      const options = obj.options;
-      options.forEach((option: any) => {
-        const price = Number(option.price);
-        const count = Number(option.count);
-        acc += price * count;
-      });
-      return acc;
-    }, 0).toFixed(2)
+  const sidebarMiniCartTotal = cartMeals !== null && cartMeals.reduce((acc: any, obj: any) => {
+    const options = obj.options;
+    options.forEach((option: any) => {
+      const price = Number(option.price);
+      const count = Number(option.count);
+      acc += price * count;
+    });
+    return acc;
+  }, 0).toFixed(2)
 
 
   if (products.length != 0) {
@@ -103,7 +103,7 @@ const Home = () => {
               )}
             </ul>
           </div>
-        
+
           <div className="w-[90%]  md:w-[50%] min-h-50vh mt-5 min-w-[250px]">
             {filteredData.map((item: any) =>
               <div className="mt-10" key={item.id}>
@@ -133,27 +133,28 @@ const Home = () => {
           {/* Mini Cart Sidebar */}
           <div className="hidden md:block sticky top-0 w-[25%]  mt-5 h-[500px] text-[black]">
             <div className="flex items-center">
-              <Image className="w-[25px] h-[25px]" src={bookmark} alt="bookmark icon" />
               <h1 className="font-bold text-2xl"> Cart</h1>
             </div>
-            {cartMeals!==null && cartMeals.length !== 0 ?
+            {cartMeals !== null && cartMeals.length !== 0 ?
               <>
-                {cartMeals.map((meal: any) =>
-                  <>
-                    <CartProductInfo
-                      key={meal.selectedMeal.id}
-                      ProductID={meal.selectedMeal.id}
-                      CartProductImg={meal.selectedMeal.img_url.small}
-                      CartproductTitle={meal.selectedMeal.title}
-                      CartProductOption={meal.options}
-                      cartContainerWrapper_classname="flex justify-between p-3 bg-gray-100 border-b-2 border-gray-300"
-                      cartContainer_classname="flex"
-                      cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-xs md:text-lg"
-                      cartContainerProductDetailOption_classname="text-xs"
-                      removeBtn_classname="bg-white w-[25px] h-[25px] rounded text-[red]"
-                    />
-                  </>
-                )}
+                <div className="overflow-y-auto h-[300px] rounded">
+                  {cartMeals.map((meal: any) =>
+                    <>
+                      <CartProductInfo
+                        key={meal.selectedMeal.id}
+                        ProductID={meal.selectedMeal.id}
+                        CartProductImg={meal.selectedMeal.img_url.small}
+                        CartproductTitle={meal.selectedMeal.title}
+                        CartProductOption={meal.options}
+                        cartContainerWrapper_classname="flex justify-between p-3 bg-gray-100 border-b-2 border-gray-300"
+                        cartContainer_classname="flex"
+                        cartContainerProductDetail_classname="flex flex-col ml-[10px] justify-center items-start text-xs md:text-lg"
+                        cartContainerProductDetailOption_classname="text-xs"
+                        removeBtn_classname="w-[20px] h-[20px] opacity-80 rounded text-[red]"
+                      />
+                    </>
+                  )}
+                </div>
                 <div className="flex flex-col items-center justify-end bg-gray-100 pb-5 pt-3">
                   <Link href="/checkout">
                     <ButtonCard
@@ -165,7 +166,7 @@ const Home = () => {
                 </div>
               </> : <div className="flex flex-col justify-center items-center bg-gray-100 min-h-[50vh] rounded-lg">
                 <p>
-                  <Image className="w-[100px]" src={Shoppingcart} alt="Shopping cart" />
+                  <Image className="w-[100px] opacity-40" src={Shoppingcart} alt="Shopping cart" />
                 </p>
                 <p>Your cart is empty.</p>
               </div>}
