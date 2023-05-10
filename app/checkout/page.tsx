@@ -97,7 +97,7 @@ export default function Checkout() {
             <div className="flex flex-wrap justify-between  sm:mt-[30px] mt-3">
               <div className="flex flex-col w-full md:w-[45%] min-w-[300px] ">
                 <label htmlFor="phone">Phone<span className="text-[red]">*</span></label>
-                <input onChange={handlePhoneOption} className="border-2 rounded-full p-2 w-full" id="phone" type="phone" />
+                <input onChange={handlePhoneOption} className="border-2 rounded-full p-2 w-full" id="phone" type="phone"/>
               </div>
               <div className="flex flex- flex-col w-full md:w-[45%] min-w-[300px]">
                 <label htmlFor="email">Email<span className="text-[red]">*</span></label>
