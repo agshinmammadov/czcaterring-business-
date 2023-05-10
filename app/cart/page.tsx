@@ -39,7 +39,7 @@ export default function Cart() {
                 cartProductTitle_classname="text-xl font-bold"
                 cartContainerProductDetail_classname="flex flex-col justify-center m-[5px] md:m-[20px]"
                 cartContainerProductDetailOption_classname="text-xs md:text-base"
-                removeBtn_classname="absolute right-6 md:right-10 mt-1 w-6 h-6 rounded text-[red] bg-gray-200"
+                removeBtn_classname="absolute right-6 md:right-10 mt-1 w-6 h-6 rounded text-[red]"
               />
 
               <p className="absolute right-[25px]  md:right-12 md:right-[50px] mt-[-30px] md:mt-[-150px] text-base font-bold">
