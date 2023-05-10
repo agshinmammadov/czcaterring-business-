@@ -1,7 +1,7 @@
 import React from "react";
 
 type ButtonProps = {
-    button_text:string,
+    button_text?:string,
     onClick?:any,
     button_Classname? :string
     name?:string,
