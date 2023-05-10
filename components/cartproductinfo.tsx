@@ -1,7 +1,8 @@
 import { removeFromCart } from "../redux/actions/action";
 import React from "react";
 import { useDispatch } from "react-redux";
-import ButtonCard from "./button";
+import closeButtonImage from "../public/media/closebutton.png";
+import Image from "next/image";
  
 type CartProductProps = {
     CartProductImg?: string,
@@ -51,13 +52,14 @@ const CartProductInfo: React.FC<CartProductProps> = ({
                     })}
                 </div>
             </div>
-            <ButtonCard
+            <button
                 key={ProductID}
-                button_Classname={removeBtn_classname}
-                button_text="x"
+                className={removeBtn_classname}
                 onClick={removeFromCartHandler}
                 name={ProductID}
-            />
+            >
+                <Image src={closeButtonImage} alt="Close button icon"></Image>
+            </button>
         </div>)}
 
 export default CartProductInfo
