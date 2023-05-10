@@ -137,7 +137,7 @@ const Home = () => {
             </div>
             {cartMeals !== null && cartMeals.length !== 0 ?
               <>
-                <div className="overflow-y-auto h-[300px] rounded">
+                <div className="overflow-y-auto bg-gray-100 max-h-[300px]  rounded">
                   {cartMeals.map((meal: any) =>
                     <>
                       <CartProductInfo

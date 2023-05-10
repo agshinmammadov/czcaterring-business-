@@ -100,7 +100,7 @@ const Header = () => {
         </ul>
       }
 
-      <div className="hidden md:block md:fixed right-3.5 top-10 w-14 h-12 bg-[rgba(0,0,0,.4)] rounded-lg" onMouseOver={showModalCart} onMouseOut={hideModalCart}>
+      <div className="hidden md:block md:fixed right-5 top-10 w-14 h-12 bg-[rgba(0,0,0,.4)] rounded-lg" onMouseOver={showModalCart} onMouseOut={hideModalCart}>
         <Image className="w-7 m-auto mt-2" src={Carticon} alt="Cart Busket" />
         <p className="absolute top-0 right-2 text-center font-bold text-[10px] text-white bg-red-700 w-[18px] h-[18px] leading-[18px] rounded-2xl">{cartMeals !== null ? cartMeals.length : 0}</p>
       </div>
@@ -109,26 +109,28 @@ const Header = () => {
         <div
           onMouseOver={showModalCart}
           onMouseOut={hideModalCart}
-          className="fixed top-[53px] md:top-[85px] md:w-[400px] md:min-h-[70px] md:right-[40px] md:rounded text-[black]  min-h-[90px] bg-[white] p-[5px] md:p-5 drop-shadow-2xl z-50 w-full"
+          className="fixed top-[53px] md:top-[85px] md:w-[400px] md:min-h-[70px] md:right-[40px] md:rounded text-[black]  min-h-[90px] bg-[white] p-[5px] md:p-5 md:pr-1 drop-shadow-2xl z-50 w-full"
         >
           {cartMeals !== null && cartMeals.length !== 0 ?
             <>
-              {cartMeals.map((meal: any) =>
-                <div className="max-h-[500px]">
-                  <CartProductInfo
-                    key={meal.selectedMeal.id}
-                    ProductID={meal.selectedMeal.id}
-                    CartProductImg={meal.selectedMeal.img_url.small}
-                    CartproductTitle={meal.selectedMeal.title}
-                    CartProductOption={meal.options}
-                    cartContainerWrapper_classname="flex flex-wrap justify-between p-[2px] md:p-3 border-b-2"
-                    cartContainer_classname="flex flex-wrap"
-                    cartContainerProductDetail_classname="flex flex-col ml-[5px] md:ml-[10px] justify-center items-start text-xs md:text-lg"
-                    cartContainerProductDetailOption_classname="text-xs"
-                    removeBtn_classname=" absolute right-[20px] mt-1 w-[25px] h-[25px] text-[red] rounded"
-                  />
-                </div>
-              )}
+              <div className="overflow-y-auto max-h-[300px]">
+                {cartMeals.map((meal: any) =>
+                  <div className="max-h-[500px]">
+                    <CartProductInfo
+                      key={meal.selectedMeal.id}
+                      ProductID={meal.selectedMeal.id}
+                      CartProductImg={meal.selectedMeal.img_url.small}
+                      CartproductTitle={meal.selectedMeal.title}
+                      CartProductOption={meal.options}
+                      cartContainerWrapper_classname="flex flex-wrap justify-between p-[2px] md:p-3 border-b-2"
+                      cartContainer_classname="flex flex-wrap"
+                      cartContainerProductDetail_classname="flex flex-col ml-[5px] md:ml-[10px] justify-center items-start text-xs md:text-lg"
+                      cartContainerProductDetailOption_classname="text-xs"
+                      removeBtn_classname="right-[30px] mt-1 w-[25px] h-[25px] text-[red] rounded"
+                    />
+                  </div>
+                )}
+              </div>
               <div className="flex flex-col items-center">
                 <div className="w-[80%] mt-5">
                   <Link href="/cart">
@@ -163,7 +165,6 @@ const Header = () => {
           }
         </div>
       }
-
       <ScrollToTop
         smooth
         width="28px"

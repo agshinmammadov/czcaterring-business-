@@ -90,7 +90,7 @@ export default function Checkout() {
             </div>
             <div className="w-full min-w-300px mt-[30px]">
               <div>
-              <p>Adress<span className="text-[red]">*</span></p>
+              <p>Address<span className="text-[red]">*</span></p>
                 <GoogleAutocomplete onAddressSelected={handleAddressSelected} />
               </div>
             </div>

@@ -32,12 +32,11 @@ const CartProductInfo: React.FC<CartProductProps> = ({
     cartContainerProductDetail_classname,
     cartContainerProductDetailOption_classname,
     removeBtn_classname
-
 }) => {
     const dispatch = useDispatch();
 
-    const removeFromCartHandler = (e: any) => {
-        dispatch(removeFromCart(e.target.name))
+    const removeFromCartHandler = (e:any) => {
+        dispatch(removeFromCart(e))
     }
     return (
         <div className={cartContainerWrapper_classname}>
@@ -55,8 +54,7 @@ const CartProductInfo: React.FC<CartProductProps> = ({
             <button
                 key={ProductID}
                 className={removeBtn_classname}
-                onClick={removeFromCartHandler}
-                name={ProductID}
+                onClick={() => removeFromCartHandler(ProductID)}
             >
                 <Image src={closeButtonImage} alt="Close button icon"></Image>
             </button>
