@@ -24,7 +24,16 @@ const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({ onAddressSelect
     window.initAutocomplete = () => {
       if (!inputRef.current) return;
 
-      const autocomplete = new google.maps.places.Autocomplete(inputRef.current);
+      const newYorkBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(40.477399, -79.761436), // New York state's northwest point
+        new google.maps.LatLng(45.015864, -71.777492) // New York state's southeast point
+      );
+  
+      const autocomplete = new google.maps.places.Autocomplete(inputRef.current, {
+        bounds: newYorkBounds,
+        strictBounds: true,
+        componentRestrictions: { country: 'US' },
+      });
 
       autocomplete.addListener('place_changed', () => {
         const place = autocomplete.getPlace();
@@ -39,24 +48,16 @@ const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({ onAddressSelect
         let zip = '';
 
         for (const component of place.address_components) {
-          const componentType = component.types[0];
-
-          switch (componentType) {
-            case 'street_number':
-              street = `${component.long_name} `;
-              break;
-            case 'route':
-              street += component.long_name;
-              break;
-            case 'locality':
-              city = component.long_name;
-              break;
-            case 'administrative_area_level_1':
-              state = component.short_name;
-              break;
-            case 'postal_code':
-              zip = component.long_name;
-              break;
+          if (component.types.includes('street_number')) {
+            street = `${component.long_name} `;
+          } else if (component.types.includes('route')) {
+            street += component.long_name;
+          } else if (component.types.includes('locality')) {
+            city = component.long_name;
+          } else if (component.types.includes('administrative_area_level_1')) {
+            state = component.short_name;
+          } else if (component.types.includes('postal_code')) {
+            zip = component.long_name;
           }
         }
 
@@ -68,22 +69,21 @@ const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({ onAddressSelect
         if (!state) unknownComponents.push('state');
         if (!zip) unknownComponents.push('zip');
 
-       
         if (addressElement && unknownComponents.length > 0) {
           addressElement.style.borderColor = "red";
           alert(`Unknown ${unknownComponents.join(', ')} address. Please type full address.`);
           return;
-        }else if(addressElement){
-          addressElement.style.borderColor = "#E5E7EB"
+        } else if (addressElement) {
+          addressElement.style.borderColor = "#E5E7EB";
         }
 
         const acceptedZips = [10001, 10012, 10014, 10010, 10011, 10018, 10003, 10016, 10009];
-
+        
         if (!acceptedZips.includes(Number(zip)) && addressElement) {
           addressElement.style.borderColor = "red";
           alert("Sorry, but currently we don't cover your area.");
           return;
-        }else if(addressElement){
+        } else if (addressElement) {
           addressElement.style.borderColor = "#E5E7EB";
         }
 
@@ -104,6 +104,4 @@ const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({ onAddressSelect
   return <input ref={inputRef} type="text" id='address' placeholder="Enter your address" className='border-2 w-full rounded-full p-2' />;
 };
 
-export default GoogleAutocomplete;
-
-
+export default GoogleAutocomplete
