@@ -75,7 +75,7 @@ export default function Cart() {
         <div className="flex flex-col justify-center items-center min-h-[30vh] bg-[white] text-[black] mt-[40px]">
           <p className="font-bold text-xl">Your cart is empty.</p>
           <div>
-            <Image className="w-[100px]" src={ShoppingcartImage} alt="Shopping cart empty" />
+            <Image className="w-[100px] opacity-60" src={ShoppingcartImage} alt="Shopping cart empty" />
           </div>
           <div className="mt-5 mb-[30px]">
             <Link href="/">
