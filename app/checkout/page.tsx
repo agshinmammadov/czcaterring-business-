@@ -1,39 +1,55 @@
 "use client"
 import PageLayout from "../../components/pagelayout";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Leftarrowicon from "../../public/media/left-arrow.png"
 import Image from "next/image";
 import CartProductInfo from "../../components/cartproductinfo";
 import Link from "next/link";
 import GoogleAutocomplete from "../../components/GoogleAutocomplete.tsx";
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { copyToClipboard } from "../../utils/clipboard";
 import CopyButtonIcon from "../../public/media/copybutton.png";
-import '../../styles/tabs.css'
+import TabComponent from "../../components/tab/tab";
 
 
-export default function Checkout() {
+const Checkout = () => {
   const cartMeals = useSelector((state: any) => state.cartReducer);
+  const [addresofRestaurant, setAddresofRestaurant] = useState(null);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const handleAddressSelected = (addressComponents: any) => {
-    console.log('Address components:', addressComponents);
-  };
-
+  const [activeTab, setActiveTab] = useState<string>('delivery');
 
   const [customerDetails, setCustomerDetails] = useState({
     firstName: "",
     lastName: "",
-    mainAddress: "",
-    optionalAdress: "",
-    city: "",
-    state: "",
-    zipcode: "",
-    deliverytType: "",
+    addresDetails:"",
+    deliverytType: "delivery",
     phone: "",
     email: "",
     ordernotes: ""
   })
+
+  const handleAddressSelected = (addressComponents: any) => {
+    setCustomerDetails({...customerDetails,addresDetails: addressComponents});
+  };
+
+  const handleTabChange = (tab: string) => {
+    setCustomerDetails({...customerDetails, deliverytType:tab})
+    setActiveTab(tab);
+  };
+
+
+  useEffect(() => {
+    const fetchAddress = async () => {
+      const res = await fetch(
+        "https://gist.githubusercontent.com/turalus/8890c7e87f8274d7df062b16d4818dfd/raw/90ddd447d92f37f6768a0a3569afd7093c98cbcd/er_api_response.json"
+      );
+      const data = await res.json();
+      setAddresofRestaurant(data.data.address)
+    };
+    fetchAddress();
+  }, []);
+
+
 
   const handleFirstName = (e: any) => {
     setCustomerDetails({
@@ -75,7 +91,6 @@ export default function Checkout() {
       setIsTooltipVisible(false);
     }, 2000);
   };
-  const AddresofRestaurant = "Memo Shish Kebab | 100 West 23rd, New York, NY 10011 | (212) 381 2115"
 
   return (
     <PageLayout>
@@ -102,42 +117,37 @@ export default function Checkout() {
                 <input onChange={handleLastName} className="border-2 rounded-full p-2" id="lastname" type="text" />
               </div>
             </div>
-            <div className="w-full min-w-300px mt-[30px]">
-              <div>
-                <Tabs className="flex flex-col w-full h-[70px]">
-                  <TabList className="flex w-full justify-center">
-                    <Tab className="w-1/2 cursor-pointer text-center border-b-2" >Delivery</Tab>
-                    <Tab className="w-1/2 cursor-pointer text-center border-b-2">Takeout</Tab>
-                  </TabList>
-
-                  <TabPanel className="mt-3 ml-3">
-                    <p>Address<span className="text-[red]">*</span></p>
-                    <GoogleAutocomplete onAddressSelected={handleAddressSelected} />
-                  </TabPanel>
-
-                  <TabPanel className="mt-3 ml-3 border bg-gray-100 p-2 rounded-lg w-fit">
-                    <p className="flex pr-2">{AddresofRestaurant}
-                      <button style={{ position: 'relative' }} onClick={() => handleCopyClick(AddresofRestaurant)}>
-                        <Image src={CopyButtonIcon} alt="Copy button Icon" className="w-6 h-6 ml-3 opacity-60"></Image>
-                        {isTooltipVisible && (
-                          <span
-                            style={{
-                              position: 'absolute',
-                              top: '-30px',
-                              backgroundColor: 'black',
-                              color: 'white',
-                              borderRadius: '4px',
-                              padding: '5px',
-                              fontSize: '12px',
-                            }}
-                          >
-                            Copied!
-                          </span>
-                        )}
-                      </button></p>
-                  </TabPanel>
-                </Tabs>
-              </div>
+            <div className="w-full min-w-300px mt-[30px] h-80px">
+              <TabComponent activeTab={activeTab} onTabChange={handleTabChange}/>
+              {activeTab === 'delivery' && (
+                <div className="mt-3 ml-3 w-full">
+                  <p>Address<span className="text-[red]">*</span></p>
+                  <GoogleAutocomplete onAddressSelected={handleAddressSelected} />
+                </div>
+              )}
+              {activeTab === 'takeout' && (
+                <div className="flex pr-2 mt-10 ml-3 border bg-gray-100 p-2 rounded-lg w-fit">
+                  <p>{addresofRestaurant !== null && addresofRestaurant}</p>
+                  <button style={{ position: 'relative' }} onClick={() => handleCopyClick(addresofRestaurant)}>
+                    <Image src={CopyButtonIcon} alt="Copy button Icon" className="w-6 h-6 ml-3 opacity-60"></Image>
+                    {isTooltipVisible && (
+                      <span
+                        style={{
+                          position: 'absolute',
+                          top: '-30px',
+                          backgroundColor: 'black',
+                          color: 'white',
+                          borderRadius: '4px',
+                          padding: '5px',
+                          fontSize: '12px',
+                        }}
+                      >
+                        Copied!
+                      </span>
+                    )}
+                  </button>
+                </div>
+              )}
             </div>
             <div className="flex flex-wrap justify-between  sm:mt-[40px] mt-20">
               <div className="flex flex-col w-full md:w-[45%] min-w-[300px] ">
@@ -204,3 +214,4 @@ export default function Checkout() {
     </PageLayout>
   )
 }
+export default Checkout;
