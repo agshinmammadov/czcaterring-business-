@@ -11,7 +11,6 @@ import ButtonCard from "./button";
 import Image from "next/image";
 import Loader from "../public/media/foodloader.gif";
 import Shoppingcart from "../public/media/shopping-cart.png";
-import bookmark from "../public/media/bookmarkicon.png"
 
 const Home = () => {
   const [products, setProducts] = useState<[]>([]);
