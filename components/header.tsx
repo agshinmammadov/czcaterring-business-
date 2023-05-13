@@ -10,6 +10,7 @@ import CartProductInfo from "./cartproductinfo";
 import Link from "next/link";
 import ScrollToTop from "react-scroll-to-top";
 import Sidebar from "./sidebar";
+import { NoSsr } from "@mui/material";
 
 const Header = () => {
   const [products, setProducts] = useState<[]>([])
@@ -80,7 +81,11 @@ const Header = () => {
         </div>
         <div className="gap-3 flex items-center md:hidden">
           <button onClick={showhideModalCart}><Image className="w-6" src={Carticon} alt="Shopping cart icon" /></button>
-          <p className="absolute top-0 mt-3 ml-3 text-center font-bold text-[10px] text-[white] bg-[black] w-[15px] h-[15px]  rounded-full">{cartMeals !== null ? cartMeals.length : 0}</p>
+          <div className="absolute top-0 mt-3 ml-3 text-center font-bold text-[10px] text-[white] bg-[black] w-[15px] h-[15px]  rounded-full">
+            <NoSsr>
+              {cartMeals !== null ? cartMeals.length : 0}
+            </NoSsr>
+          </div>
           <Link href="/"><button onClick={showHideMenuCategories} className="font-bold text-white">MENU</button></Link>
         </div>
       </nav>
@@ -89,20 +94,24 @@ const Header = () => {
       {mealCategoryOnOff &&
         <ul className="md:hidden fixed top-[45px] bg-gray-100 p-3 w-full mt-4 z-10 text-left text-black">
           {products.map((cat: any) =>
-            <a href={`/#${cat.title}`} key={cat.id} onClick={(event) => unHideCategoryName(event, cat.title)}>
+            <Link href={`/#${cat.title}`} key={cat.id} onClick={(event) => unHideCategoryName(event, cat.title)}>
               <Sidebar
                 sidebartitle={cat.title}
                 sidebartitle_classname="p-2 border-b-2 hover:bg-[#C00A27] hover:text-white w-full"
                 onClick_activity={showHideMenuCategories}
               />
-            </a>
+            </Link>
           )}
         </ul>
       }
 
       <div className="hidden md:block md:fixed right-5 top-10 w-14 h-12 bg-[rgba(0,0,0,.4)] rounded-lg" onMouseOver={showModalCart} onMouseOut={hideModalCart}>
         <Image className="w-7 m-auto mt-2" src={Carticon} alt="Cart Busket" />
-        <p className="absolute top-0 right-2 text-center font-bold text-[10px] text-white bg-red-700 w-[18px] h-[18px] leading-[18px] rounded-2xl">{cartMeals !== null ? cartMeals.length : 0}</p>
+        <div className="absolute top-0 right-2 text-center font-bold text-[10px] text-white bg-red-700 w-[18px] h-[18px] leading-[18px] rounded-2xl">
+          <NoSsr>
+            {cartMeals !== null ? cartMeals.length : 0}
+          </NoSsr>
+        </div>
       </div>
 
       {showCartModal &&
