@@ -7,6 +7,7 @@ import PageLayout from "../../components/pagelayout";
 import Link from "next/link";
 import Image from "next/image";
 import ShoppingcartImage from "../../public/media/shopping-cart.png";
+import { NoSsr } from "@mui/material";
 
 export default function Cart() {
   const cartMeals = useSelector((state: any) => state.cartReducer);
@@ -23,12 +24,12 @@ export default function Cart() {
 
   return (
     <PageLayout>
+      <NoSsr>
       {cartMeals !== null && cartMeals.length !== 0 ?
         <div className="text-black px-[5px] md:px-[20px] bg-white pt-6 pb-14">
           {cartMeals.map((meal: any) =>
-            <>
-              <CartProductInfo
-                key={meal.selectedMeal.id}
+            <React.Fragment key={meal.selectedMeal.id}>
+              <CartProductInfo                
                 ProductID={meal.selectedMeal.id}
                 CartProductImg={meal.selectedMeal.img_url.large}
                 CartproductTitle={meal.selectedMeal.title}
@@ -41,7 +42,7 @@ export default function Cart() {
                 cartContainerProductDetailOption_classname="text-xs md:text-base"
                 removeBtn_classname="absolute right-6 md:right-10 mt-1 w-6 h-6 rounded text-[red]"
               />
-
+              
               <p className="absolute right-[25px]  md:right-12 md:right-[50px] mt-[-30px] md:mt-[-150px] text-base font-bold">
                 $ {meal.options.reduce((acc: any, item: any) => {
                   const price = parseFloat(item.price);
@@ -49,7 +50,7 @@ export default function Cart() {
                   return acc + price * count;
                 }, 0).toFixed(2)}
               </p>
-            </>
+            </React.Fragment>
           )}
           
           <div className="flex flex-wrap mt-[50px] justify-around gap-3">
@@ -86,6 +87,7 @@ export default function Cart() {
             </Link>
           </div>
         </div>}
+        </NoSsr>
     </PageLayout>
   )
 }
