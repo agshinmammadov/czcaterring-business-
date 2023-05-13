@@ -2,7 +2,7 @@
 import Search from "./search"
 import Sidebar from "./sidebar";
 import Link from "next/link";
-import { useEffect, useState, SyntheticEvent } from "react";
+import React, { useEffect, useState, SyntheticEvent } from "react";
 import Productcard from "./productcard";
 import ProductDetailsOverlay from "./proddetailsoverlay";
 import CartProductInfo from "./cartproductinfo";
@@ -93,12 +93,12 @@ const Home = () => {
             />
             <ul className="hidden md:block rounded-lg bg-gray-100 p-3 w-full mt-4">
               {products.map((cat: any) =>
-                <a href={`#${cat.title}`} key={cat.id} onClick={(event) => SmoothScroll(event, cat.title)}>
+                <Link href={`#${cat.title}`} key={cat.id} onClick={(event) => SmoothScroll(event, cat.title)}>
                   <Sidebar
                     sidebartitle={cat.title}
                     sidebartitle_classname="p-2"
                   />
-                </a>
+                </Link>
               )}
             </ul>
           </div>
@@ -138,9 +138,8 @@ const Home = () => {
               <>
                 <div className="overflow-y-auto bg-gray-100 max-h-[300px]  rounded">
                   {cartMeals.map((meal: any) =>
-                    <>
-                      <CartProductInfo
-                        key={meal.selectedMeal.id}
+                    <React.Fragment key={meal.selectedMeal.id}>
+                      <CartProductInfo                        
                         ProductID={meal.selectedMeal.id}
                         CartProductImg={meal.selectedMeal.img_url.small}
                         CartproductTitle={meal.selectedMeal.title}
@@ -151,7 +150,7 @@ const Home = () => {
                         cartContainerProductDetailOption_classname="text-xs"
                         removeBtn_classname="w-[20px] h-[20px] opacity-80 rounded text-[red]"
                       />
-                    </>
+                    </React.Fragment>
                   )}
                 </div>
                 <div className="flex flex-col items-center justify-end bg-gray-100 pb-5 pt-3">
