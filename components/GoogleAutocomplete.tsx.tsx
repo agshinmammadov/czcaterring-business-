@@ -111,7 +111,7 @@ const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({ onAddressSelect
     };
   }, []);
 
-  return <input ref={inputRef} type="text" id='address' placeholder="Enter your address" className='border-2 w-full rounded-full p-2' />;
+  return <input ref={inputRef} type="text" id='address' placeholder="Enter your address" className='border-2 w-full rounded-full p-2' required/>;
 };
 
 export default GoogleAutocomplete

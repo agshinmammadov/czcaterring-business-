@@ -14,7 +14,7 @@ export const removeFromCart = (element:any) => {
     }
 }
 
-export const costumerDetails = (details:any) => {
+export const importantCostumerDetails = (details:any) => {
     return {
         type:actionTypes.COSTUMER_DETAILS,
         payload:details
