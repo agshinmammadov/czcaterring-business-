@@ -10,7 +10,6 @@ import GoogleAutocomplete from "../../components/GoogleAutocomplete.tsx";
 import { copyToClipboard } from "../../utils/clipboard";
 import CopyButtonIcon from "../../public/media/copybutton.png";
 import TabComponent from "../../components/tab/tab";
-import { importantCostumerDetails } from "../../redux/actions/action";
 
 
 const Checkout = () => {
@@ -32,7 +31,6 @@ const Checkout = () => {
     email: "",
     ordernotes: ""
   })
-  console.log(customerDetails)
 
   const handleAddressSelected = (addressComponents: any) => {
     const { state, city, zip, street } = addressComponents;
@@ -119,7 +117,6 @@ const Checkout = () => {
   const tax = (subTotalAmount * 2 / 100).toFixed(2);
   const totalAmount = (parseFloat(subTotalAmount) + parseFloat(tax)).toFixed(2);
 
-
   return (
     <PageLayout>
       <div className="flex flex-col flex-wrap justify-around bg-[white] text-[black] min-h-[60vh] md:mx-[30px] gap-[20px]">
@@ -198,59 +195,66 @@ const Checkout = () => {
             <div className="md:w-[35%] min-w-[300px] w-full pl-[30px]">
               <p className="font-bold mt-[30px]">YOUR ORDER</p>
               <div className="w-[150px] h-[3px] bg-[red]"></div>
-              <table className="flex flex-col w-full p-[30px] border-b-2 bg-[#F5F5F5] rounded-xl mt-[30px]">
-                <thead className="flex justify-between border-b-2">
-                  <th>Product</th>
-                  <th>Total</th>
-                </thead>
-                <tbody>
-                  {cartMeals !== null && cartMeals.map((meal: any) => (
-                    <tr className="flex justify-between items-center w-full">
-                      <td className="w-full">
-                        <CartProductInfo
-                          key={meal.selectedMeal.id}
-                          ProductID={meal.selectedMeal.id}
-                          CartproductTitle={meal.selectedMeal.title}
-                          CartProductOption={meal.options}
-                          cartContainerWrapper_classname="flex py-[5px]"
-                          cartProductTitle_classname="text-base"
-                          cartContainerProductDetail_classname="flex flex-col justify-start mt-[5px]"
-                          cartContainerProductDetailOption_classname="text-xs"
-                          removeBtn_classname="hidden"
-                        />
-                      </td>
-                      <td className="w-full flex justify-end">
-                        {meal.options.reduce((acc: any, item: any) => {
-                          const price = parseFloat(item.price);
-                          const count = parseInt(item.count);
-                          return acc + price * count;
-                        }, 0).toFixed(2)}
-                      </td>
-                    </tr>
-                  ))}
-                  <tr className="border-y-2 w-full flex mt-3 py-3 justify-between">
-                    <td><strong>Subtotal</strong></td>
-                    <td>${subTotalAmount}</td>
-                  </tr>
-                  <tr className="border-b-2 w-full flex mt-3 py-3 justify-between">
-                    <td><strong>Tax</strong></td>
-                    <td>${tax}</td>
-                  </tr>
-                  <tr className="border-b-2 w-full flex mt-3 py-3 justify-between">
-                    <td><strong>Total</strong></td>
-                    <td><strong>${totalAmount}</strong></td>
-                  </tr>
-                  <tr className="flex flex-col w-full mt-3">
-                    <td className="opacity-70"><label htmlFor="tipamount">Tip amount</label></td>
-                    <td><input className="rounded-full px-3 py-2 mt-2 border-2  w-full" id="tipamount" type="number" placeholder="Tip amount" defaultValue={0}  min={0}/></td>
-                  </tr>
-                  <tr className="flex flex-col w-full mt-3">
-                    <td className="opacity-70"><label htmlFor="promocode">Promo code</label></td>
-                    <td><input className="rounded-full px-3 py-2 mt-2 border-2  w-full" id="promocode" type="number" placeholder="Promo code" defaultValue={0} min={0}/></td>
-                  </tr>
-                </tbody>
-                <button className="py-3 px-6 mt-6 bg-[#C00A27] text-white rounded-full">Place order</button>
-              </table>
+              <div className=" bg-[#F5F5F5] rounded-xl py-[15px] px-[30px] my-9 mr-6 md:mr-0">
+                <table className="flex flex-col w-full border-b-2  mt-[30px]">
+                  <thead className="flex justify-between border-b-2">
+                    <th>Product</th>
+                    <th>Total</th>
+                  </thead>
+                  <tbody>
+                    {cartMeals !== null && cartMeals.map((meal: any) => (
+                      <tr className="flex justify-between items-center w-full">
+                        <td className="w-full">
+                          <CartProductInfo
+                            key={meal.selectedMeal.id}
+                            ProductID={meal.selectedMeal.id}
+                            CartproductTitle={meal.selectedMeal.title}
+                            CartProductOption={meal.options}
+                            cartContainerWrapper_classname="flex py-[5px]"
+                            cartProductTitle_classname="text-base"
+                            cartContainerProductDetail_classname="flex flex-col justify-start mt-[5px]"
+                            cartContainerProductDetailOption_classname="text-xs"
+                            removeBtn_classname="hidden"
+                          />
+                        </td>
+                        <td className="w-full flex justify-end">
+                          {meal.options.reduce((acc: any, item: any) => {
+                            const price = parseFloat(item.price);
+                            const count = parseInt(item.count);
+                            return acc + price * count;
+                          }, 0).toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {cartMeals !== null && cartMeals.length !== 0 ?
+                  <div>
+                    <p className="border-b-2 w-full flex mt-3 py-3 justify-between">
+                      <p><strong>Subtotal</strong></p>
+                      <p>${subTotalAmount}</p>
+                    </p>
+                    <p className="border-b-2 w-full flex mt-3 py-3 justify-between">
+                      <p><strong>Tax</strong></p>
+                      <p>${tax}</p>
+                    </p>
+
+                    <p className="border-b-2 w-full flex mt-3 py-3 justify-between">
+                      <p><strong>Total</strong></p>
+                      <p><strong>${totalAmount}</strong></p>
+                    </p>
+                    <p className="flex flex-col w-full mt-3">
+                      <p className="opacity-70"><label htmlFor="tipamount">Tip amount</label></p>
+                      <p><input className="rounded-full px-3 py-2 mt-2 border-2  w-full" id="tipamount" type="number" placeholder="Tip amount" defaultValue={0} min={0} /></p>
+                    </p>
+                    <p className="flex flex-col w-full mt-3">
+                      <p className="opacity-70"><label htmlFor="promocode">Promo code</label></p>
+                      <p><input className="rounded-full px-3 py-2 mt-2 border-2  w-full" id="promocode" type="number" placeholder="Promo code" defaultValue={0} min={0} /></p>
+                    </p>                    
+                    <button className="py-3 px-6 mt-6 bg-[#C00A27] text-white rounded-full w-full">Place order</button>
+                  </div> : <div className="p-3"></div>
+                }
+              </div>
             </div>
           </div>
         </form>

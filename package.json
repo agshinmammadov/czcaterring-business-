@@ -13,6 +13,8 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.0",
     "@react-google-maps/api": "^2.18.1",
+    "@stripe/react-stripe-js": "^2.1.0",
+    "@stripe/stripe-js": "^1.52.1",
     "@types/googlemaps": "^3.43.3",
     "@types/node": "18.14.6",
     "@types/react": "18.0.28",
