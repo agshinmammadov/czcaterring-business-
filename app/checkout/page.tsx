@@ -17,6 +17,7 @@ const Checkout = () => {
   const [addresofRestaurant, setAddresofRestaurant] = useState(null);
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
   const [activeTab, setActiveTab] = useState<string>('delivery');
+  const [tipAmount, setTipAmount] = useState<number>(0);
 
 
   const [customerDetails, setCustomerDetails] = useState({
@@ -105,6 +106,10 @@ const Checkout = () => {
     }, 2000);
   };
 
+  const handleTipAmount = (e: any) => {
+    setTipAmount(e.target.value)
+  }
+
   const subTotalAmount = cartMeals !== null && cartMeals.reduce((acc: any, obj: any) => {
     const options = obj.options;
     options.forEach((option: any) => {
@@ -114,8 +119,9 @@ const Checkout = () => {
     });
     return acc;
   }, 0).toFixed(2);
-  const tax = (subTotalAmount * 2 / 100).toFixed(2);
-  const totalAmount = (parseFloat(subTotalAmount) + parseFloat(tax)).toFixed(2);
+  const tax = (subTotalAmount * 8.86 / 100).toFixed(2);
+  const totalAmount = (parseFloat(subTotalAmount) + parseFloat(tax) + Number(tipAmount)).toFixed(2) ;
+
 
   return (
     <PageLayout>
@@ -238,6 +244,11 @@ const Checkout = () => {
                       <p><strong>Tax</strong></p>
                       <p>${tax}</p>
                     </p>
+                    {tipAmount > 0 && 
+                      <p className="border-b-2 w-full flex mt-3 py-3 justify-between">
+                        <p><strong>Tip</strong></p>
+                        <p>${tipAmount}</p>
+                      </p>}
 
                     <p className="border-b-2 w-full flex mt-3 py-3 justify-between">
                       <p><strong>Total</strong></p>
@@ -245,12 +256,12 @@ const Checkout = () => {
                     </p>
                     <p className="flex flex-col w-full mt-3">
                       <p className="opacity-70"><label htmlFor="tipamount">Tip amount</label></p>
-                      <p><input className="rounded-full px-3 py-2 mt-2 border-2  w-full" id="tipamount" type="number" placeholder="Tip amount" defaultValue={0} min={0} /></p>
+                      <p><input className="rounded-full px-3 py-2 mt-2 border-2  w-full" onBlur={handleTipAmount} id="tipamount" type="number" placeholder="Tip amount" defaultValue={0} min={0} /></p>
                     </p>
                     <p className="flex flex-col w-full mt-3">
                       <p className="opacity-70"><label htmlFor="promocode">Promo code</label></p>
                       <p><input className="rounded-full px-3 py-2 mt-2 border-2  w-full" id="promocode" type="number" placeholder="Promo code" defaultValue={0} min={0} /></p>
-                    </p>                    
+                    </p>
                     <button className="py-3 px-6 mt-6 bg-[#C00A27] text-white rounded-full w-full">Place order</button>
                   </div> : <div className="p-3"></div>
                 }
